@@ -10,6 +10,8 @@ enum class SceneID
 	TITLE_SCENE,
 
 	HOME_SCENE,
+
+	MAIN_SCENE,
 };
 
 class Scene;

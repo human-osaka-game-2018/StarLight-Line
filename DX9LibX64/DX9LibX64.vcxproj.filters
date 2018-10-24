@@ -148,7 +148,7 @@
     <ClCompile Include="Class\GameManager\Light\Light.cpp">
       <Filter>Class\GameManager\Light</Filter>
     </ClCompile>
-    <ClCompile Include="MainScene.cpp">
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainScene.cpp">
       <Filter>Class\SceneManager\Scene\MainScene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -219,7 +219,7 @@
     <ClInclude Include="Class\GameManager\Light\Light.h">
       <Filter>Class\GameManager\Light</Filter>
     </ClInclude>
-    <ClInclude Include="MainScene.h">
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainScene.h">
       <Filter>Class\SceneManager\Scene\MainScene</Filter>
     </ClInclude>
   </ItemGroup>

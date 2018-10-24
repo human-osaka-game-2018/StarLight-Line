@@ -3,6 +3,7 @@
 #include "Scene\Scene.h"
 #include "Scene\TitleScene\TitleScene.h"
 #include "Scene\HomeScene\HomeScene.h"
+#include "Scene\MainScene\MainScene.h"
 #include "SceneManager.h"
 
 #include <crtdbg.h>
@@ -66,6 +67,16 @@ VOID SceneManager::Manage()
 		m_pScene = new HomeScene();
 
 		break;
+
+	case SceneID::MAIN_SCENE:
+
+		delete m_pScene;
+
+		m_currentScene = SceneID::MAIN_SCENE;
+		m_pScene = new MainScene();
+
+		break;
+
 	default:
 
 		break;
