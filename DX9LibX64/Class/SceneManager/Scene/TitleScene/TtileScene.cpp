@@ -54,16 +54,30 @@ VOID TitleScene::Update()
 
 VOID TitleScene::Render()
 {
+	//初期化 開始//
+	if (m_frame == -1)
+	{
+		m_frame = 0;
+
+		m_fileManager.CreateTex(_T("Back"), _T("2DTextures/Title/TitleBack.png"));	//画像読み込み
+		m_fileManager.CreateTex(_T("Logo"), _T("2DTextures/Title/TitleLogo.png"));
+		m_fileManager.CreateTex(_T("WaitInput"), _T("2DTextures/Title/TitleWaitInput.png"));
+		m_fileManager.CreateTex(_T("NewGame"), _T("2DTextures/Title/TitleMenuNewGame.png"));
+		m_fileManager.CreateTex(_T("LoadGame"), _T("2DTextures/Title/TitleMenuLoadGame.png"));
+		m_fileManager.CreateTex(_T("EndGame"), _T("2DTextures/Title/TitleMenuEndGame.png"));
+	}
+	//初期化 終了//
+
 	//ライトの設定　開始//クラスにする予定
 	D3DLIGHT9 light;
 	ZeroMemory(&light, sizeof(D3DLIGHT9));
 
-	D3DXVECTOR3 vecDirection(-0.5f, -1.0f, 1.0f);	//ライトの方向
+	D3DXVECTOR3 vecDirection(-0.5f, -1.0f, 1.0f);								//ライトの方向
 	light.Direction = vecDirection;
 
-	light.Type = D3DLIGHT_DIRECTIONAL;	//ライトの種類 今回は直線ライト
+	light.Type = D3DLIGHT_DIRECTIONAL;											//ライトの種類 今回は直線ライト
 
-	light.Diffuse.r = 1.5f;	//ライトの色の設定
+	light.Diffuse.r = 1.5f;														//ライトの色の設定
 	light.Diffuse.g = 1.5f;
 	light.Diffuse.b = 1.5f;
 
@@ -75,10 +89,25 @@ VOID TitleScene::Render()
 	light.Ambient.b = 10.f;
 	light.Ambient.g = 10.f;
 
-	light.Range = 0.f;	//ライトの範囲　直線ライトの場合は必要ない
+	light.Range = 0.f;															//ライトの範囲　直線ライトの場合は必要ない
 
 	LPDIRECT3DDEVICE9 pDirectX3DDevice = m_pGameManager->GetDirectX3DDevice();	//3Dデバイスの取得
-	pDirectX3DDevice->SetLight(0, &light);	//0番目のカメラに設定
-	pDirectX3DDevice->LightEnable(0, TRUE);	//ライトを有効化
+	pDirectX3DDevice->SetLight(0, &light);										//0番目のカメラに設定
+	pDirectX3DDevice->LightEnable(0, TRUE);										//ライトを有効化
 	//ライトの設定　終了//
+
+	D3DXVECTOR2 windowSize;	//windowのサイズ
+	m_pGameManager->GetDisplaySize(&windowSize);
+
+	//背景の描画 開始//クラスにするかもしれない
+	D3DXVECTOR3 backCenter(windowSize.x*0.5f, windowSize.y*0.5f, 1.0f);
+	D3DXVECTOR2 halfBackScale = windowSize * 0.5f;
+	CustomVertex back[4];
+
+	m_pCustomVertices->Create(back, &backCenter, &halfBackScale);		//頂点データのセット
+
+	m_pDraw->Render(back, m_fileManager.GetTex(_T("Back")));			//描画
+	//背景の描画 終了//
+
+
 }
