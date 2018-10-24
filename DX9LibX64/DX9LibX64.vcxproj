@@ -132,6 +132,7 @@
     <ClCompile Include="Class\Draw\Draw.cpp" />
     <ClCompile Include="Class\FBX\FbxModel.cpp" />
     <ClCompile Include="Class\FBX\FbxRelated.cpp" />
+    <ClCompile Include="Class\FileManager\FileManager.cpp" />
     <ClCompile Include="Class\FPS\FPS.cpp" />
     <ClCompile Include="Class\GameManager\DirectX\DirectX.cpp" />
     <ClCompile Include="Class\GameManager\GameManager.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Class\Draw\Draw.h" />
     <ClInclude Include="Class\FBX\FbxModel.h" />
     <ClInclude Include="Class\FBX\FbxRelated.h" />
+    <ClInclude Include="Class\FileManager\FileManager.h" />
     <ClInclude Include="Class\FPS\FPS.h" />
     <ClInclude Include="Class\GameManager\DirectX\DirectX.h" />
     <ClInclude Include="Class\GameManager\GameManager.h" />

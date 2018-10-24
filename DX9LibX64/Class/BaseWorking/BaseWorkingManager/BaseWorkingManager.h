@@ -8,6 +8,6 @@ public:
 	virtual VOID Update();
 	virtual VOID Render();
 
-private:
+protected:
 	std::vector<BaseWorking*> m_pBaseWorkings;
 };

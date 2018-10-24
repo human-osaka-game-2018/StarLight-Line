@@ -66,6 +66,9 @@
     <Filter Include="Class\SceneManager\Scene\TitleScene\TitleObject">
       <UniqueIdentifier>{75acd32a-6db1-4217-8907-2208e823edac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\FileManager">
+      <UniqueIdentifier>{5f184d9d-2884-42ea-a39a-48abd776b3cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\命名規則.md">
@@ -133,6 +136,9 @@
     <ClCompile Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.cpp">
       <Filter>Class\SceneManager\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
+    <ClCompile Include="Class\FileManager\FileManager.cpp">
+      <Filter>Class\FileManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\FBX\FbxModel.h">
@@ -194,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.h">
       <Filter>Class\SceneManager\Scene\TitleScene\TitleObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\FileManager\FileManager.h">
+      <Filter>Class\FileManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
