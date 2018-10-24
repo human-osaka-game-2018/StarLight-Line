@@ -28,4 +28,5 @@ protected:
 	InputData m_inputData;
 	BaseWorkingManager m_sceneObjectManager;
 	FileManager m_fileManager;
+	INT frame = -1;
 };

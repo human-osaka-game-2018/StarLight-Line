@@ -13,4 +13,13 @@ class TitleScene :public Scene
 public:
 	VOID Update();
 	VOID Render();
+private:
+
+	enum MenuID
+	{
+		NEW_GAME,
+		LOAD_GAME,
+		END_GAME,
+		MENU_MAX
+	};
 };

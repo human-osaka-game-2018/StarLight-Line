@@ -8,9 +8,53 @@
 
 VOID TitleScene::Update()
 {
-	static int frame = -1;
+	KeyBoardState& rKeyState = m_inputData.m_keyBoardState;
 
-	//ライトの設定//
+	//メニューの選択 開始//
+	static MenuID menuReel[MENU_MAX] = { END_GAME,NEW_GAME,LOAD_GAME };
+
+	const int SelectingMenu = 1;												//現在選ばれているmenuが入っているmenuReelの要素番号
+
+	if (rKeyState.m_keyPush[DIK_W] || rKeyState.m_keyPush[DIK_UP])				//menuの切替
+	{
+		MenuID menuReelTmp[MENU_MAX] = { menuReel[1],menuReel[2],menuReel[0] };	//ボタンが押されるとmenuReelの中身がずれていく
+
+		memcpy(&menuReel, &menuReelTmp, sizeof(MenuID)*MENU_MAX);
+	}
+
+	if (rKeyState.m_keyPush[DIK_S] || rKeyState.m_keyPush[DIK_DOWN])
+	{
+		MenuID menuReelTmp[MENU_MAX] = { menuReel[2],menuReel[0],menuReel[1] };
+
+		memcpy(&menuReel, &menuReelTmp, sizeof(MenuID)*MENU_MAX);
+	}
+
+	if (rKeyState.m_keyPush[DIK_RETURN])										//menuの選択
+	{
+		switch (menuReel[SelectingMenu])
+		{
+		case NEW_GAME:
+			//m_pNextScene = 
+
+			break;
+
+		case LOAD_GAME:
+			//m_pNextScene = 
+
+			break;
+
+		case END_GAME:
+			//m_pNextScene = 
+
+			break;
+		}
+	}
+	//メニューの選択 終了//
+}
+
+VOID TitleScene::Render()
+{
+	//ライトの設定　開始//クラスにする予定
 	D3DLIGHT9 light;
 	ZeroMemory(&light, sizeof(D3DLIGHT9));
 
@@ -33,101 +77,8 @@ VOID TitleScene::Update()
 
 	light.Range = 0.f;	//ライトの範囲　直線ライトの場合は必要ない
 
-	LPDIRECT3DDEVICE9 pDirectX3DDevice = m_pGameManager->GetDirectX3DDevice();
-	pDirectX3DDevice->SetLight(0, &light);
-	pDirectX3DDevice->LightEnable(0, TRUE);
-
-	static FbxRelated starFBX;
-	static LPDIRECT3DTEXTURE9 pTexture;
-
-	if (frame == -1)
-	{
-		starFBX.LoadFbx("3DModels/Eiwi/untitled.fbx");
-
-		D3DXCreateTextureFromFile(pDirectX3DDevice,
-			_T("2DTextures/circle.png"),
-			&pTexture);
-
-		++frame;
-	}
-
-	D3DXVECTOR2 displaySize;
-	m_pGameManager->GetDisplaySize(&displaySize);
-
-	CustomVertex background[4];
-
-	D3DXVECTOR2 halfBackgroundSize;
-	D3DXVECTOR3 backgroundCenter(0.0f,0.0f,1.0f);
-
-	for (int n = 0; n < 32; ++n)
-	{
-		halfBackgroundSize.x = ((-n)+(frame/3))* 2.0f;
-		halfBackgroundSize.y = halfBackgroundSize.x;
-
-		backgroundCenter.x = displaySize.x/32*(float)(n+1);
-
-			for (int i = 0; i < 18; ++i)
-			{
-				backgroundCenter.y = displaySize.y /18* (float)(i+1);
-				m_pCustomVertices->Create(background, &backgroundCenter, &halfBackgroundSize,0xFFDDDD11);
-
-				m_pDraw->Render(background, pTexture);
-			}
-	}
-
-	D3DXVECTOR4 eiwiEmissive(0.0f, 0.3f, 0.3f, 0.01f);
-	starFBX.SetEmissive(&eiwiEmissive);
-
-	D3DXMATRIX			matWorld;
-	D3DXMatrixIdentity(&matWorld);
-
-	D3DXMATRIX			matScal;
-	D3DXMatrixScaling(&matScal, 1.06f, 1.06f, 1.06f);
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matScal);
-
-	D3DXMATRIX			matPitch;
-	D3DXMatrixRotationX(&matPitch, D3DXToRadian(frame*0.0f));
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matPitch);
-
-	D3DXMATRIX			matYaw;
-	D3DXMatrixRotationY(&matYaw, D3DXToRadian(frame*3.0f));
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matYaw);
-
-	D3DXMATRIX			matRoll;
-	D3DXMatrixRotationZ(&matRoll, D3DXToRadian(frame*3.0f));
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matRoll);
-
-	D3DXVECTOR3 matPos(0.0f, -0.0f, 4.0f);
-
-	D3DXMATRIX			matPosition;	// 位置座標行列
-	D3DXMatrixTranslation(&matPosition, matPos.x, matPos.y, matPos.z);
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matPosition);
-
-	m_pDraw->Render(&starFBX, &matWorld, NULL);
-
-	static bool canBack = false;
-
-	if (canBack)
-	{
-		--frame;
-	}
-
-	if (frame <0)
-	{
-		canBack = false;
-	}
-
-	if (!canBack)
-	{
-		++frame;
-	}
-
-	if (frame > 90)
-	{
-		canBack = true;
-	}
-}
-
-VOID TitleScene::Render()
-{
+	LPDIRECT3DDEVICE9 pDirectX3DDevice = m_pGameManager->GetDirectX3DDevice();	//3Dデバイスの取得
+	pDirectX3DDevice->SetLight(0, &light);	//0番目のカメラに設定
+	pDirectX3DDevice->LightEnable(0, TRUE);	//ライトを有効化
+	//ライトの設定　終了//
 }
