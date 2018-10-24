@@ -9,5 +9,5 @@ public:
 	virtual VOID Render();
 
 private:
-	std::vector<BaseWorking*> pBaseWorkings;
+	std::vector<BaseWorking*> m_pBaseWorkings;
 };

@@ -141,6 +141,7 @@
     <ClCompile Include="Class\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\Scene.cpp" />
+    <ClCompile Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\TitleScene\TtileScene.cpp" />
     <ClCompile Include="Class\Singleton\Singleton.cpp" />
     <ClCompile Include="Class\Vector\Vector.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Class\SceneManager\SceneManager.h" />
     <ClInclude Include="Class\SceneManager\Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Class\SceneManager\Scene\Scene.h" />
+    <ClInclude Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.h" />
     <ClInclude Include="Class\SceneManager\Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Class\Singleton\Singleton.h" />
     <ClInclude Include="Class\Vector\Vector.h" />

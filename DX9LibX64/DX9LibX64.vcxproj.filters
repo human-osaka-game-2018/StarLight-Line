@@ -63,6 +63,9 @@
     <Filter Include="Class\BaseWorking\BaseWorkingManager">
       <UniqueIdentifier>{88ca8883-0926-43b3-84b8-9ab716631c0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\SceneManager\Scene\TitleScene\TitleObject">
+      <UniqueIdentifier>{75acd32a-6db1-4217-8907-2208e823edac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\命名規則.md">
@@ -127,6 +130,9 @@
     <ClCompile Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.cpp">
       <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
     </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.cpp">
+      <Filter>Class\SceneManager\Scene\TitleScene\TitleObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\FBX\FbxModel.h">
@@ -185,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.h">
       <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.h">
+      <Filter>Class\SceneManager\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "../../FBX/ClassFBX.h"
 #include "../../CustomVertices/CustomVertices.h"
 #include "../../Draw/Draw.h"
+#include "../../BaseWorking/BaseWorkingManager/BaseWorkingManager.h"
 
 enum class SceneID;
 
@@ -24,4 +25,5 @@ protected:
 	CustomVertices* m_pCustomVertices;
 	Draw* m_pDraw;
 	InputData m_inputData;
+	BaseWorkingManager m_sceneObjectManager;
 };
