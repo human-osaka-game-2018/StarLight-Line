@@ -28,5 +28,5 @@ protected:
 	InputData m_inputData;
 	BaseWorkingManager m_sceneObjectManager;
 	FileManager m_fileManager;
-	INT m_frame = -1;
+	LONGLONG m_frame = -1;
 };
