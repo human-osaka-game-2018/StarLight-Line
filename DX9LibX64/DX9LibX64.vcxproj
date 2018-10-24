@@ -148,6 +148,7 @@
     <ClCompile Include="Class\Singleton\Singleton.cpp" />
     <ClCompile Include="Class\Vector\Vector.cpp" />
     <ClCompile Include="DXLibX64\Main.cpp" />
+    <ClCompile Include="MainScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\BaseWorking\BaseWorking.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Class\Singleton\Singleton.h" />
     <ClInclude Include="Class\Vector\Vector.h" />
     <ClInclude Include="DXLibX64\Main.h" />
+    <ClInclude Include="MainScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

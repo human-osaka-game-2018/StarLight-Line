@@ -72,6 +72,9 @@
     <Filter Include="Class\GameManager\Light">
       <UniqueIdentifier>{d07d4db2-9835-4eb2-9c0a-9ec35a5466eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\SceneManager\Scene\MainScene">
+      <UniqueIdentifier>{a31ae22d-21cd-4987-9a4a-fc1a7a9663e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\命名規則.md">
@@ -145,6 +148,9 @@
     <ClCompile Include="Class\GameManager\Light\Light.cpp">
       <Filter>Class\GameManager\Light</Filter>
     </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Class\SceneManager\Scene\MainScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\FBX\FbxModel.h">
@@ -212,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="Class\GameManager\Light\Light.h">
       <Filter>Class\GameManager\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Class\SceneManager\Scene\MainScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
