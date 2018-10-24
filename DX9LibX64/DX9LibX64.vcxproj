@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class\BaseWorking\BaseWorking.cpp" />
+    <ClCompile Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.cpp" />
     <ClCompile Include="Class\CustomVertices\CustomVertices.cpp" />
     <ClCompile Include="Class\Draw\Draw.cpp" />
     <ClCompile Include="Class\FBX\FbxModel.cpp" />
@@ -147,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\BaseWorking\BaseWorking.h" />
+    <ClInclude Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.h" />
     <ClInclude Include="Class\CustomVertices\CustomVertices.h" />
     <ClInclude Include="Class\Draw\Draw.h" />
     <ClInclude Include="Class\FBX\FbxModel.h" />

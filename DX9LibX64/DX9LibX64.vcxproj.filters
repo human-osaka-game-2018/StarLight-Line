@@ -60,6 +60,9 @@
     <Filter Include="Main">
       <UniqueIdentifier>{2770b8e8-3e85-475a-ae53-aa325edc6a44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\BaseWorking\BaseWorkingManager">
+      <UniqueIdentifier>{88ca8883-0926-43b3-84b8-9ab716631c0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\命名規則.md">
@@ -121,6 +124,9 @@
     <ClCompile Include="DXLibX64\Main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.cpp">
+      <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\FBX\FbxModel.h">
@@ -176,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="DXLibX64\Main.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.h">
+      <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
