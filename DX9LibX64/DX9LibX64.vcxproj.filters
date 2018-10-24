@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Class">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Class\FBX">
+      <UniqueIdentifier>{23a84baf-ed70-4e64-80ad-2cfb6ecf9316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\FPS">
+      <UniqueIdentifier>{b892e18d-ce1b-478a-b9a9-b48051378d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Vector">
+      <UniqueIdentifier>{3ef55082-3a0f-4292-a574-83eccfa72768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameManager">
+      <UniqueIdentifier>{7cc5c046-39f1-44c3-ae76-58a09f2f6e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameManager\DirectX">
+      <UniqueIdentifier>{4c7f7ad2-61ff-45fe-85e7-6a89c93d171a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameManager\Window">
+      <UniqueIdentifier>{201b8cac-50d2-4368-9c2e-ac0fba2bf061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\CustomVertices">
+      <UniqueIdentifier>{b10b142a-49d1-4c20-91ac-62a246b22648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\SceneManager">
+      <UniqueIdentifier>{271c64da-70d6-43bf-ae89-0201084dea78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\SceneManager\Scene">
+      <UniqueIdentifier>{7ef55bd8-dc1d-4fbd-85ec-d2a3121b1f8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Draw">
+      <UniqueIdentifier>{caa7b040-7888-4b49-930e-203d971bbd00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Singleton">
+      <UniqueIdentifier>{95237abf-ca99-4e5b-87f6-b6bbc53c5c50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\SceneManager\Scene\TitleScene">
+      <UniqueIdentifier>{bdf0923f-432d-40da-a1c1-3c270ff18a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\SceneManager\Scene\HomeScene">
+      <UniqueIdentifier>{fa13fffc-8c7a-453a-9dee-f8017def651c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\BaseWorking">
+      <UniqueIdentifier>{8fcad537-77ac-4407-831b-c9dc91413ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\ObjectManager">
+      <UniqueIdentifier>{2ab1277a-e811-444d-8811-110f15e847ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\ObjectManager\Object">
+      <UniqueIdentifier>{4d1cb6d9-6c73-430e-995d-0f0e4cc0f6e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{2770b8e8-3e85-475a-ae53-aa325edc6a44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\命名規則.md">
+      <Filter>リソース ファイル</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Class\FBX\FbxModel.cpp">
+      <Filter>Class\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\FBX\FbxRelated.cpp">
+      <Filter>Class\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\FPS\FPS.cpp">
+      <Filter>Class\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Vector\Vector.cpp">
+      <Filter>Class\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\GameManager\DirectX\DirectX.cpp">
+      <Filter>Class\GameManager\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\GameManager\Window\Window.cpp">
+      <Filter>Class\GameManager\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\GameManager\GameManager.cpp">
+      <Filter>Class\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\SceneManager\SceneManager.cpp">
+      <Filter>Class\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\Scene.cpp">
+      <Filter>Class\SceneManager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\CustomVertices\CustomVertices.cpp">
+      <Filter>Class\CustomVertices</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Draw\Draw.cpp">
+      <Filter>Class\Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Singleton\Singleton.cpp">
+      <Filter>Class\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\TitleScene\TtileScene.cpp">
+      <Filter>Class\SceneManager\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\HomeScene\HomeScene.cpp">
+      <Filter>Class\SceneManager\Scene\HomeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\BaseWorking\BaseWorking.cpp">
+      <Filter>Class\BaseWorking</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\ObjectManager\ObjectManager.cpp">
+      <Filter>Class\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\ObjectManager\Object\Object.cpp">
+      <Filter>Class\ObjectManager\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DXLibX64\Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Class\FBX\FbxModel.h">
+      <Filter>Class\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\FBX\FbxRelated.h">
+      <Filter>Class\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\FPS\FPS.h">
+      <Filter>Class\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Vector\Vector.h">
+      <Filter>Class\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\GameManager\DirectX\DirectX.h">
+      <Filter>Class\GameManager\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\GameManager\Window\Window.h">
+      <Filter>Class\GameManager\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\GameManager\GameManager.h">
+      <Filter>Class\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\SceneManager.h">
+      <Filter>Class\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\Scene.h">
+      <Filter>Class\SceneManager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\CustomVertices\CustomVertices.h">
+      <Filter>Class\CustomVertices</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Draw\Draw.h">
+      <Filter>Class\Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Singleton\Singleton.h">
+      <Filter>Class\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\TitleScene\TitleScene.h">
+      <Filter>Class\SceneManager\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\HomeScene\HomeScene.h">
+      <Filter>Class\SceneManager\Scene\HomeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\BaseWorking\BaseWorking.h">
+      <Filter>Class\BaseWorking</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\ObjectManager\ObjectManager.h">
+      <Filter>Class\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\ObjectManager\Object\Object.h">
+      <Filter>Class\ObjectManager\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DXLibX64\Main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
