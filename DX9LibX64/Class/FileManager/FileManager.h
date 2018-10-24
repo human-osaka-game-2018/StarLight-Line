@@ -10,10 +10,12 @@ public:
 	FileManager() {};
 	~FileManager();
 
-	TCHAR* CreateTex(TCHAR* pTexName,TCHAR* pTexturePath);
-	void DeleteTex();
+	static VOID SetLPDIRECT3DDEVICE9(LPDIRECT3DDEVICE9 pDirectX3DDevice);
+	VOID CreateTex(TCHAR* pTexName,TCHAR* pTexturePath);
+	VOID DeleteTex();
 	LPDIRECT3DTEXTURE9 GetTex(TCHAR* pTexName);
 
 protected:
-	std::map<TCHAR, LPDIRECT3DTEXTURE9> pTextures;
+	std::map<TCHAR*, LPDIRECT3DTEXTURE9> m_pTextures;
+	static LPDIRECT3DDEVICE9 m_pDirectX3DDevice;
 };

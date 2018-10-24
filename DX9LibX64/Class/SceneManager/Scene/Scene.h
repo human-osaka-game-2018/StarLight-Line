@@ -6,6 +6,7 @@
 #include "../../CustomVertices/CustomVertices.h"
 #include "../../Draw/Draw.h"
 #include "../../BaseWorking/BaseWorkingManager/BaseWorkingManager.h"
+#include "../../FileManager/FileManager.h"
 
 enum class SceneID;
 
@@ -26,4 +27,5 @@ protected:
 	Draw* m_pDraw;
 	InputData m_inputData;
 	BaseWorkingManager m_sceneObjectManager;
+	FileManager m_fileManager;
 };

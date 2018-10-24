@@ -10,13 +10,16 @@ VOID TitleScene::Update()
 {
 	static int frame = -1;
 
-	D3DXVECTOR3 vecDirection(-0.5f, -1.0f, 1.0f);
+	//ライトの設定//
 	D3DLIGHT9 light;
-
 	ZeroMemory(&light, sizeof(D3DLIGHT9));
 
-	light.Type = D3DLIGHT_DIRECTIONAL;
-	light.Diffuse.r = 1.5f;
+	D3DXVECTOR3 vecDirection(-0.5f, -1.0f, 1.0f);	//ライトの方向
+	light.Direction = vecDirection;
+
+	light.Type = D3DLIGHT_DIRECTIONAL;	//ライトの種類 今回は直線ライト
+
+	light.Diffuse.r = 1.5f;	//ライトの色の設定
 	light.Diffuse.g = 1.5f;
 	light.Diffuse.b = 1.5f;
 
@@ -28,9 +31,8 @@ VOID TitleScene::Update()
 	light.Ambient.b = 10.f;
 	light.Ambient.g = 10.f;
 
-	D3DXVec3Normalize((D3DXVECTOR3*)&light.Direction, &vecDirection);
+	light.Range = 0.f;	//ライトの範囲　直線ライトの場合は必要ない
 
-	light.Range = 1.f;
 	LPDIRECT3DDEVICE9 pDirectX3DDevice = m_pGameManager->GetDirectX3DDevice();
 	pDirectX3DDevice->SetLight(0, &light);
 	pDirectX3DDevice->LightEnable(0, TRUE);

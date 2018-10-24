@@ -8,6 +8,7 @@
 #include "DirectX\DirectX.h"
 #include "../FPS/FPS.h"
 #include "../Draw/Draw.h"
+#include "../FileManager/FileManager.h"
 #include "GameManager.h"
 
 #define _CRTDBG_MAP_ALLOC
@@ -54,6 +55,7 @@ VOID GameManager::Create()
 	InitializeWindow();
 	InitializeDirectX();
 	Draw::SetLPDIRECT3DDEVICE9(GetDirectX3DDevice());
+	FileManager::SetLPDIRECT3DDEVICE9(GetDirectX3DDevice());
 	LoopMainFunc();
 }
 

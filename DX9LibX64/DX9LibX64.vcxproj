@@ -136,6 +136,7 @@
     <ClCompile Include="Class\FPS\FPS.cpp" />
     <ClCompile Include="Class\GameManager\DirectX\DirectX.cpp" />
     <ClCompile Include="Class\GameManager\GameManager.cpp" />
+    <ClCompile Include="Class\GameManager\Light\Light.cpp" />
     <ClCompile Include="Class\GameManager\Window\Window.cpp" />
     <ClCompile Include="Class\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="Class\ObjectManager\Object\Object.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Class\FPS\FPS.h" />
     <ClInclude Include="Class\GameManager\DirectX\DirectX.h" />
     <ClInclude Include="Class\GameManager\GameManager.h" />
+    <ClInclude Include="Class\GameManager\Light\Light.h" />
     <ClInclude Include="Class\GameManager\Window\Window.h" />
     <ClInclude Include="Class\ObjectManager\ObjectManager.h" />
     <ClInclude Include="Class\ObjectManager\Object\Object.h" />
