@@ -142,6 +142,8 @@
     <ClCompile Include="Class\ObjectManager\Object\Object.cpp" />
     <ClCompile Include="Class\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\HomeScene\HomeScene.cpp" />
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStar.cpp" />
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\Timer.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainScene.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\Scene.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.cpp" />
@@ -167,6 +169,8 @@
     <ClInclude Include="Class\ObjectManager\Object\Object.h" />
     <ClInclude Include="Class\SceneManager\SceneManager.h" />
     <ClInclude Include="Class\SceneManager\Scene\HomeScene\HomeScene.h" />
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStat.h" />
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\Timer.h" />
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainScene.h" />
     <ClInclude Include="Class\SceneManager\Scene\Scene.h" />
     <ClInclude Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.h" />

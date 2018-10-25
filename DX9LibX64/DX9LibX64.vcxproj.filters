@@ -75,6 +75,12 @@
     <Filter Include="Class\SceneManager\Scene\MainScene">
       <UniqueIdentifier>{a31ae22d-21cd-4987-9a4a-fc1a7a9663e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\SceneManager\Scene\MainScene\MainObject">
+      <UniqueIdentifier>{02c3c5c6-93fd-4fc9-83a5-641bad96efeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Timer">
+      <UniqueIdentifier>{56acc828-d48a-47ec-aef5-c8a475de548e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\命名規則.md">
@@ -151,6 +157,12 @@
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainScene.cpp">
       <Filter>Class\SceneManager\Scene\MainScene</Filter>
     </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStar.cpp">
+      <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\Timer.cpp">
+      <Filter>Class\Timer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\FBX\FbxModel.h">
@@ -221,6 +233,12 @@
     </ClInclude>
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainScene.h">
       <Filter>Class\SceneManager\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStat.h">
+      <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\Timer.h">
+      <Filter>Class\Timer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

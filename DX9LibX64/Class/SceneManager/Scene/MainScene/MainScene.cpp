@@ -2,7 +2,7 @@
 
 VOID MainScene::Update()
 {
-
+	
 }
 
 VOID MainScene::Render()
