@@ -1,10 +1,25 @@
 #include "FileManager.h"
 
+FileManager* FileManager::m_pFileManager = NULL;
 LPDIRECT3DDEVICE9 FileManager::m_pDirectX3DDevice = NULL;
+
+FileManager* FileManager::GetInstace()
+{
+	if (!m_pFileManager)m_pFileManager = new FileManager;
+
+	return m_pFileManager;
+}
+
+VOID FileManager::Release()
+{
+	DeleteTex();
+	 
+	delete m_pFileManager;
+	m_pFileManager = NULL;
+}
 
 FileManager::~FileManager()
 {
-	DeleteTex();
 }
 
 VOID FileManager::SetLPDIRECT3DDEVICE9(LPDIRECT3DDEVICE9 pDirectX3DDevice)

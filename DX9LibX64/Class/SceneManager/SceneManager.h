@@ -19,7 +19,7 @@ class SceneManager :public BaseWorking
 public:
 	static SceneManager * GetInstance();
 
-	VOID DeleteInstnce();
+	VOID Release();
 
 	VOID Update();
 
@@ -40,6 +40,7 @@ private:
 	GameManager* m_pGameManager;
 	CustomVertices* m_pCustomVertices;
 	Draw* m_pDraw;
+	FileManager* m_pFileManager;
 
 	InputData m_inputData;
 };

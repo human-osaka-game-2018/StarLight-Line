@@ -43,7 +43,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 	pGameManager->Create();
 
-	pSceneManager->DeleteInstnce();
+	pSceneManager->Release();
 
 	return pGameManager->DeleteInstance();
 }

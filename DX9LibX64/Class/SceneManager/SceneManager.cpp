@@ -17,8 +17,9 @@ SceneManager::SceneManager()
 {
 	m_pGameManager = GameManager::CopyInstance();
 	m_inputData = m_pGameManager->GetInputData();
-	m_pCustomVertices  = CustomVertices::GetInstance();
+	m_pCustomVertices = CustomVertices::GetInstance();
 	m_pDraw = Draw::GetInstance();
+	m_pFileManager = FileManager::GetInstace();
 }
 
 SceneManager::~SceneManager()
@@ -32,10 +33,11 @@ SceneManager* SceneManager::GetInstance()
 	return m_pSceneManager;
 }
 
-VOID SceneManager::DeleteInstnce()
+VOID SceneManager::Release()
 {
 	m_pCustomVertices->DeleteInstance();
 	m_pDraw->DeleteInstance();
+	m_pFileManager->Release();
 	delete m_pScene;
 	delete m_pSceneManager;
 	m_pSceneManager = NULL;
@@ -77,7 +79,7 @@ VOID SceneManager::Update()
 	Manage();
 
 	m_inputData = m_pGameManager->GetInputData();
-	m_pScene->syncLibInstance(m_pGameManager, m_pCustomVertices, m_pDraw, m_inputData);
+	m_pScene->syncLibInstance(m_pGameManager, m_pCustomVertices, m_pDraw, m_inputData, m_pFileManager);
 	m_pScene->Update();
 	m_pScene->syncNextScene(&m_nextScene);
 }
