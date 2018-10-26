@@ -19,7 +19,7 @@ public:
 	virtual VOID Control();
 	virtual VOID Render();
 private:
-	//static bool cmpLarge(Object2D* p1, Object2D* p2);
+	static bool cmpLarge(Object2D* p1, Object2D* p2);
 
 	GameManager* m_pGameManager;
 	CustomVertices* m_pCustomVertices;

@@ -84,6 +84,7 @@ VOID TitleScene::Render()
 		m_pFileManager->CreateTex(_T("LoadGame"), _T("2DTextures/Title/TitleMenuLoadGame.png"));
 		m_pFileManager->CreateTex(_T("EndGame"), _T("2DTextures/Title/TitleMenuEndGame.png"));
 		m_pFileManager->CreateTex(_T("StarEffect"), _T("2DTextures/Title/StarEffect.png"));
+		m_pFileManager->CreateTex(_T("OverStarEffect"), _T("2DTextures/Title/OverStarEffect.png"));
 
 		srand((unsigned int)(time(NULL)));
 	}
@@ -103,26 +104,26 @@ VOID TitleScene::Render()
 	//背景の描画 終了//
 
 	//エフェクトの描画 開始//
-	const int STAR_EFFECT_MAX = 60;
+	const int STAR_EFFECT_MAX = 600;
 
 	const int STAR_EFFECT_COLORS_MAX = 11;
 	const DWORD STAR_EFFECT_COLORS[STAR_EFFECT_COLORS_MAX] =
 	{
-		D3DCOLOR_ARGB(140,63,255,20),
-		D3DCOLOR_ARGB(140,20,255,95),
-		D3DCOLOR_ARGB(140,20,255,212),
-		D3DCOLOR_ARGB(140,20,181,255),
-		D3DCOLOR_ARGB(140,20,63,255),
-		D3DCOLOR_ARGB(140,95,20,255),
-		D3DCOLOR_ARGB(140,212,20,255),
-		D3DCOLOR_ARGB(140,255,20,181),
-		D3DCOLOR_ARGB(140,255,20,63),
-		D3DCOLOR_ARGB(140,255,95,20),
-		D3DCOLOR_ARGB(140,255,212,20),
+		D3DCOLOR_ARGB(220,63,255,20),
+		D3DCOLOR_ARGB(220,20,255,95),
+		D3DCOLOR_ARGB(220,20,255,212),
+		D3DCOLOR_ARGB(220,20,181,255),
+		D3DCOLOR_ARGB(220,20,63,255),
+		D3DCOLOR_ARGB(220,95,20,255),
+		D3DCOLOR_ARGB(220,212,20,255),
+		D3DCOLOR_ARGB(220,255,20,181),
+		D3DCOLOR_ARGB(220,255,20,63),
+		D3DCOLOR_ARGB(220,255,95,20),
+		D3DCOLOR_ARGB(220,255,212,20),
 	};
 
 	static starEffect starEffects[STAR_EFFECT_MAX];
-	D3DXVECTOR2 halfstarEffectScale(windowSize.x*0.0023f, windowSize.y*0.6f);
+	D3DXVECTOR2 halfstarEffectScale(windowSize.x*0.0026f, windowSize.y*0.6f);//0.0027,0.6
 	D3DXVECTOR3 unitStarEffectMovement(0.0f, 60.0f, 0.0f);
 	D3DXMATRIX matRotate;
 
@@ -140,8 +141,8 @@ VOID TitleScene::Render()
 
 			D3DXVec3TransformCoord(&starEffects[i].m_movement, &unitStarEffectMovement, &matRotate);
 
-			starEffects[i].m_center.x = (float)(rand() % ((int)(windowSize.x)))+ windowSize.x*3.0f;
-			starEffects[i].m_center.y = -4000.0f;
+			starEffects[i].m_center.x = (float)(rand() % ((int)(windowSize.x))) + windowSize.x*3.0f;
+			starEffects[i].m_center.y = -4000.0f - rand() % 5000000;
 			starEffects[i].m_center.z = 0.99f;
 
 			starEffects[i].m_color = STAR_EFFECT_COLORS[rand() % STAR_EFFECT_COLORS_MAX];
@@ -154,9 +155,12 @@ VOID TitleScene::Render()
 		D3DXVECTOR3 starEffectRerativeRotatePos(0.0f, 0.0f, 0.0f);
 		m_pCustomVertices->RotateZ(starEffects[i].m_vertices, starEffects[i].m_rotationDegree.z, &starEffectRerativeRotatePos);
 
-		if (starEffects[i].m_stageCount>0)
+		if (starEffects[i].m_stageCount > 0)
 		{
 			m_pDraw->Render(starEffects[i].m_vertices, m_pFileManager->GetTex(_T("StarEffect")));
+
+			m_pCustomVertices->SetColor(starEffects[i].m_vertices, D3DCOLOR_ARGB(130, 255, 255, 255));
+			m_pDraw->Render(starEffects[i].m_vertices, m_pFileManager->GetTex(_T("OverStarEffect")));
 		}
 
 		++starEffects[i].m_stageCount;
@@ -196,7 +200,7 @@ VOID TitleScene::Render()
 
 		flashCount = (canCountUp) ? ++flashCount : --flashCount;																					//canCountUpがtrueなら+ falseなら-
 
-		m_pDraw->Render(waitInput, m_pFileManager->GetTex(_T("WaitInput")));																			//描画
+		m_pDraw->Render(waitInput, m_pFileManager->GetTex(_T("WaitInput")));																		//描画
 		//入力待ちテキストの描画 終了//
 	}
 

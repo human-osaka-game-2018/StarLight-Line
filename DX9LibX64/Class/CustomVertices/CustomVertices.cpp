@@ -266,8 +266,32 @@ VOID CustomVertices::Create(Custom3DVertex* pCustom3DVertices, const D3DXVECTOR3
 		pCustom3DVertices[i].m_pos.x += (i % 3) ? pHalfScale->x : -(pHalfScale->x);
 		pCustom3DVertices[i].m_pos.x += (i / 2) ? pHalfScale->y : -(pHalfScale->y);
 
-		pCustom3DVertices[i].m_aRGB = 0XFFFFFFFF;
+		pCustom3DVertices[i].m_aRGB = color;
 	}
 
 	SetTexUV(pCustom3DVertices, startTU, startTV, endTU, endTV);
+}
+
+struct Object2DData;
+
+VOID CustomVertices::Create(CustomVertex *pCustomVertices, const Object2DData*pObject2DData)
+{
+	for (int i = 0; i < M_RECT_VERTICES_NUM; ++i)
+	{
+		pCustomVertices->m_pos = pObject2DData->m_center;
+		pCustomVertices[i].m_pos.x += (i % 3) ? pObject2DData->m_scale.x : -(pObject2DData->m_scale.x);
+		pCustomVertices[i].m_pos.x += (i / 2) ? pObject2DData->m_scale.y : -(pObject2DData->m_scale.y);
+
+		pCustomVertices[i].m_aRGB = pObject2DData->m_color;
+	}
+
+	SetTexUV(pCustomVertices, 0.0f, 0.0f, 1.0f, 1.0f);
+}
+
+VOID CustomVertices::SetColor(CustomVertex *pCustomVertices, DWORD color)
+{
+	for (int i = 0; i < M_RECT_VERTICES_NUM; ++i)
+	{
+		pCustomVertices[i].m_aRGB = color;
+	}
 }

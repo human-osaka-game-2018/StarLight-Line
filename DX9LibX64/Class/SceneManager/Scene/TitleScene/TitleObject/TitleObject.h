@@ -5,9 +5,23 @@
 class TitleBack :public Object2D
 {
 public:
+	VOID Init();
 	VOID Update() {};
 	VOID Render();
+};
 
-private:
+class TitleLogo :public Object2D
+{
+public:
 	VOID Init();
+	VOID Update() {};
+	VOID Render();
+};
+ 
+class TitleInputPrompt :public Object2D
+{
+public:
+	VOID Init();
+	VOID Update();
+	VOID Render();
 };

@@ -32,6 +32,8 @@ VOID Object2DManager::Control()
 		dynamic_cast<Object2D*>(pI)->syncLibInstance(m_pGameManager, 
 			m_pCustomVertices, m_pDraw, m_inputData, m_pFileManager);
 
+		dynamic_cast<Object2D*>(pI)->Init();
+
 		pI->Update();
 	}
 }
@@ -45,7 +47,7 @@ VOID Object2DManager::Render()
 		pObject2Ds.push_back(dynamic_cast<Object2D*>(pI));
 	}
 
-	//std::sort(pObject2Ds.begin(), pObject2Ds.end(), &this->cmpLarge);
+	std::sort(pObject2Ds.begin(), pObject2Ds.end(), &this->cmpLarge);
 
 	for (Object2D* pI : pObject2Ds)
 	{
@@ -53,7 +55,7 @@ VOID Object2DManager::Render()
 	}
 }
 
-//bool Object2DManager::cmpLarge(Object2D* p1, Object2D* p2)
-//{
-//	return(p1->GetZ() > p2->GetZ());
-//}
+bool Object2DManager::cmpLarge(Object2D* p1, Object2D* p2)
+{
+	return(p1->GetZ() > p2->GetZ());
+}

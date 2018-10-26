@@ -1,4 +1,5 @@
 #include "Object2D.h"
+#include "../../CustomVertices/CustomVertices.h"
 #include <crtdbg.h>
 #include <cstdio>
 #include <cstdlib>
@@ -7,12 +8,12 @@
 
 Object2D::~Object2D()
 {
-	for (Object2DData &rI : m_object2DDatas)
+	for (Object2DData* pI : m_pObject2DDatas)
 	{
-		delete &rI;
+		delete pI;
 	}
 
-	m_object2DDatas.shrink_to_fit();
+	m_pObject2DDatas.shrink_to_fit();
 }
 
 Type Object2D::GetType()
@@ -22,7 +23,7 @@ Type Object2D::GetType()
 
 FLOAT Object2D::GetZ()
 {
-	return m_object2DDatas[0].m_center.z;
+	return m_pObject2DDatas[0]->m_center.z;
 }
 
 VOID Object2D::syncLibInstance(GameManager* pGameManager, CustomVertices* pCustomVertices, Draw* pDraw, InputData inputData, FileManager* pFileManager)
