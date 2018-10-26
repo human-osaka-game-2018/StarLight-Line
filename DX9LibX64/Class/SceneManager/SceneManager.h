@@ -37,7 +37,7 @@ private:
 
 	Scene* m_pScene = NULL;
 	SceneID m_currentScene = SceneID::VOID_SCENE;
-	SceneID m_nextScene = SceneID::MAIN_SCENE;
+	SceneID m_nextScene = SceneID::TITLE_SCENE;
 
 	GameManager* m_pGameManager;
 	CustomVertices* m_pCustomVertices;

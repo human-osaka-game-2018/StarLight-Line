@@ -6,6 +6,7 @@
 #include "../../../FBX/FbxRelated.h"
 #include "../../../CustomVertices/CustomVertices.h"
 #include "../../../Draw/Draw.h"
+#include "../../SceneManager.h"
 #include "TitleScene.h"
 
 VOID TitleScene::Update()
@@ -47,18 +48,18 @@ VOID TitleScene::Update()
 		case NEW_GAME:
 			m_canSelectMenu = false;
 
-			//m_pNextScene = 
+			*m_pNextScene = SceneID::MAIN_SCENE;
 
 			break;
 
 		case LOAD_GAME:
-			//m_pNextScene = 
+			*m_pNextScene = SceneID::MAIN_SCENE;
 			m_canSelectMenu = false;
 
 			break;
 
 		case END_GAME:
-			//m_pNextScene = 
+			*m_pNextScene = SceneID::MAIN_SCENE;
 			m_canSelectMenu = false;
 
 			break;

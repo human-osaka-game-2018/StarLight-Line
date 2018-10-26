@@ -4,7 +4,6 @@
 
 VOID MainScene::Update()
 {
-	
 }
 
 VOID MainScene::Render()
@@ -17,10 +16,13 @@ VOID MainScene::Render()
 	CustomVertex BackGround[4];
 
 	m_pCustomVertices->Create(BackGround, &BackGroundCenterPos, &BackGroundHalfScale);
-	m_pDraw->Render(BackGround, m_fileManager.GetTex(_T("BackGround")));
+	m_pDraw->Render(BackGround, m_pFileManager->GetTex(_T("BackGround")));
 }
 
 MainScene::MainScene()
 {
-	m_fileManager.CreateTex(_T("BackGround"), _T("2DTextures/reticle_line.png"));
+	m_pFileManager = FileManager::GetInstace();
+
+	m_pFileManager->CreateTex(_T("BackGround"), _T("2DTextures/reticle_line.png"));
+
 }
