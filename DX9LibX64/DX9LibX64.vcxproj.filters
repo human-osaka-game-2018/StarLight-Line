@@ -45,9 +45,6 @@
     <Filter Include="Class\SceneManager\Scene\TitleScene">
       <UniqueIdentifier>{bdf0923f-432d-40da-a1c1-3c270ff18a59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\SceneManager\Scene\HomeScene">
-      <UniqueIdentifier>{fa13fffc-8c7a-453a-9dee-f8017def651c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\BaseWorking">
       <UniqueIdentifier>{8fcad537-77ac-4407-831b-c9dc91413ae6}</UniqueIdentifier>
     </Filter>
@@ -80,6 +77,9 @@
     </Filter>
     <Filter Include="Class\Timer">
       <UniqueIdentifier>{56acc828-d48a-47ec-aef5-c8a475de548e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameManager\HomeScene">
+      <UniqueIdentifier>{fa13fffc-8c7a-453a-9dee-f8017def651c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,7 +128,7 @@
       <Filter>Class\SceneManager\Scene\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="Class\SceneManager\Scene\HomeScene\HomeScene.cpp">
-      <Filter>Class\SceneManager\Scene\HomeScene</Filter>
+      <Filter>Class\GameManager\HomeScene</Filter>
     </ClCompile>
     <ClCompile Include="Class\BaseWorking\BaseWorking.cpp">
       <Filter>Class\BaseWorking</Filter>
@@ -160,8 +160,14 @@
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStar.cpp">
       <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
     </ClCompile>
-    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\Timer.cpp">
+    <ClCompile Include="Class\Timer\Timer.cpp">
       <Filter>Class\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\DamageStar.cpp">
+      <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\ScoreStar.cpp">
+      <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,7 +211,7 @@
       <Filter>Class\SceneManager\Scene\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="Class\SceneManager\Scene\HomeScene\HomeScene.h">
-      <Filter>Class\SceneManager\Scene\HomeScene</Filter>
+      <Filter>Class\GameManager\HomeScene</Filter>
     </ClInclude>
     <ClInclude Include="Class\BaseWorking\BaseWorking.h">
       <Filter>Class\BaseWorking</Filter>
@@ -237,8 +243,14 @@
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStat.h">
       <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
     </ClInclude>
-    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\Timer.h">
+    <ClInclude Include="Class\Timer\Timer.h">
       <Filter>Class\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\DamageStar.h">
+      <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\ScoreStar.h">
+      <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

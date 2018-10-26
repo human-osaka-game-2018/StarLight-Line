@@ -12,7 +12,17 @@
 */
 class BaseStar:public BaseWorking
 {
+public:
+	BaseStar() {};
+	~BaseStar() {};
+
+	virtual VOID Update() = 0;
+	virtual VOID Render() = 0;
+
 protected:
+	VOID PosOfStarYCoordinate();
+	VOID FollingStarPosYTime(const LONGLONG& CurrentTime);
+
 	D3DXVECTOR3	m_Pos;				//x,y,zÀ•W
 	DWORD m_Color;					//¯‚ÌF
 	float m_DropPerMinute;			//1•ªŠÔ‚É‚Ç‚ê‚¾‚¯—‚¿‚Ä‚­‚é‚©

@@ -11,6 +11,9 @@
 class MainScene :public Scene
 {
 public:
+	MainScene();
+	~MainScene();
+
 	VOID Update();
 	VOID Render();
 };
