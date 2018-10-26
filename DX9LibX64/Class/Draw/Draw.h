@@ -12,6 +12,7 @@
 #include "../CustomVertices/CustomVertices.h"
 
 struct CustomVertex;
+struct Custom3DVertex;
 
 /**
 * @class Draw

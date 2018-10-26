@@ -48,12 +48,6 @@
     <Filter Include="Class\BaseWorking">
       <UniqueIdentifier>{8fcad537-77ac-4407-831b-c9dc91413ae6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\ObjectManager">
-      <UniqueIdentifier>{2ab1277a-e811-444d-8811-110f15e847ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\ObjectManager\Object">
-      <UniqueIdentifier>{4d1cb6d9-6c73-430e-995d-0f0e4cc0f6e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{2770b8e8-3e85-475a-ae53-aa325edc6a44}</UniqueIdentifier>
     </Filter>
@@ -80,6 +74,12 @@
     </Filter>
     <Filter Include="Class\GameManager\HomeScene">
       <UniqueIdentifier>{fa13fffc-8c7a-453a-9dee-f8017def651c}</UniqueIdentifier>
+    <Filter Include="Class\Object2DManager">
+    </Filter>
+      <UniqueIdentifier>{2ab1277a-e811-444d-8811-110f15e847ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Object2DManager\Object2D">
+      <UniqueIdentifier>{4d1cb6d9-6c73-430e-995d-0f0e4cc0f6e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,17 +133,8 @@
     <ClCompile Include="Class\BaseWorking\BaseWorking.cpp">
       <Filter>Class\BaseWorking</Filter>
     </ClCompile>
-    <ClCompile Include="Class\ObjectManager\ObjectManager.cpp">
-      <Filter>Class\ObjectManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Class\ObjectManager\Object\Object.cpp">
-      <Filter>Class\ObjectManager\Object</Filter>
-    </ClCompile>
     <ClCompile Include="DXLibX64\Main.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.cpp">
-      <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
     </ClCompile>
     <ClCompile Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.cpp">
       <Filter>Class\SceneManager\Scene\TitleScene\TitleObject</Filter>
@@ -168,6 +159,15 @@
     </ClCompile>
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\ScoreStar.cpp">
       <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
+    <ClCompile Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.cpp">
+      <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
+    </ClCompile>
+    </ClCompile>
+    <ClCompile Include="Class\Object2DManager\Object2DManager.cpp">
+      <Filter>Class\Object2DManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\Object2DManager\Object2D\Object2D.cpp">
+      <Filter>Class\Object2DManager\Object2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,17 +216,8 @@
     <ClInclude Include="Class\BaseWorking\BaseWorking.h">
       <Filter>Class\BaseWorking</Filter>
     </ClInclude>
-    <ClInclude Include="Class\ObjectManager\ObjectManager.h">
-      <Filter>Class\ObjectManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Class\ObjectManager\Object\Object.h">
-      <Filter>Class\ObjectManager\Object</Filter>
-    </ClInclude>
     <ClInclude Include="DXLibX64\Main.h">
       <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.h">
-      <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
     </ClInclude>
     <ClInclude Include="Class\SceneManager\Scene\TitleScene\TitleObject\TitleObject.h">
       <Filter>Class\SceneManager\Scene\TitleScene\TitleObject</Filter>
@@ -251,6 +242,15 @@
     </ClInclude>
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\ScoreStar.h">
       <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
+      </ClInclude>
+    <ClInclude Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.h">
+      <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object2DManager\Object2DManager.h">
+      <Filter>Class\Object2DManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\Object2DManager\Object2D\Object2D.h">
+      <Filter>Class\Object2DManager\Object2D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

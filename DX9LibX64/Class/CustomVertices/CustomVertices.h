@@ -1,6 +1,8 @@
 #pragma once
 #include <windows.h>
 #include <d3dx9.h>
+#include "../BaseWorking/BaseWorking.h"
+#include "../Object2DManager/Object2D/Object2D.h"
 
 /**
 * @struct CustomVertex
@@ -31,6 +33,8 @@ public:
 
 	D3DXVECTOR2 m_TexUV;	//! テクスチャの座標
 };
+
+struct Object2DData;
 
 /**
 * @class CustomVertices
@@ -151,6 +155,10 @@ public:
 
 	VOID Create(Custom3DVertex* pCustom3DVertices, const D3DXVECTOR3* pCenter, const D3DXVECTOR2* pHalfScale,
 		DWORD color = 0xFFFFFFFF, FLOAT startTU = 0.0f, FLOAT startTV = 0.0f, FLOAT endTU = 1.0f, FLOAT endTV = 1.0f);
+
+	VOID Create(CustomVertex *pCustomVertices, const Object2DData*pObject2DData);
+
+	VOID SetColor(CustomVertex *pCustomVertices, DWORD color);
 
 private:
 	CustomVertices() {};

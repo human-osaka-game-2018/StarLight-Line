@@ -19,10 +19,12 @@ VOID Scene::syncNextScene(SceneID* pNextScene)
 	m_pNextScene = pNextScene;
 }
 
-VOID Scene::syncLibInstance(GameManager* pGameManager, CustomVertices* pCustomVertices, Draw* pDraw, InputData inputData)
+VOID Scene::syncLibInstance(GameManager* pGameManager, CustomVertices* pCustomVertices,
+	Draw* pDraw, InputData inputData, FileManager* pFileManager)
 {
 	m_pGameManager = pGameManager;
 	m_pCustomVertices = m_pCustomVertices;
 	m_pDraw = pDraw;
 	m_inputData = inputData;
+	m_pFileManager = pFileManager;
 }

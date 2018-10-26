@@ -1,5 +1,7 @@
 #include <Windows.h>
 #include <d3dx9.h>
+#include <time.h>
+#include <stdlib.h>
 #include "../../../GameManager/GameManager.h"
 #include "../../../FBX/FbxRelated.h"
 #include "../../../CustomVertices/CustomVertices.h"
@@ -8,126 +10,247 @@
 
 VOID TitleScene::Update()
 {
-	static int frame = -1;
+	KeyBoardState& rKeyState = m_inputData.m_keyBoardState;
 
-	//ライトの設定//
-	D3DLIGHT9 light;
-	ZeroMemory(&light, sizeof(D3DLIGHT9));
-
-	D3DXVECTOR3 vecDirection(-0.5f, -1.0f, 1.0f);	//ライトの方向
-	light.Direction = vecDirection;
-
-	light.Type = D3DLIGHT_DIRECTIONAL;	//ライトの種類 今回は直線ライト
-
-	light.Diffuse.r = 1.5f;	//ライトの色の設定
-	light.Diffuse.g = 1.5f;
-	light.Diffuse.b = 1.5f;
-
-	light.Specular.r = 10.0f;
-	light.Specular.b = 10.0f;
-	light.Specular.g = 10.0f;
-
-	light.Ambient.r = 10.f;
-	light.Ambient.b = 10.f;
-	light.Ambient.g = 10.f;
-
-	light.Range = 0.f;	//ライトの範囲　直線ライトの場合は必要ない
-
-	LPDIRECT3DDEVICE9 pDirectX3DDevice = m_pGameManager->GetDirectX3DDevice();
-	pDirectX3DDevice->SetLight(0, &light);
-	pDirectX3DDevice->LightEnable(0, TRUE);
-
-	static FbxRelated starFBX;
-	static LPDIRECT3DTEXTURE9 pTexture;
-
-	if (frame == -1)
+	for (int i = 0; i < DIK_MEDIASELECT + 1 && !m_canSelectMenu; ++i)
 	{
-		starFBX.LoadFbx("3DModels/Eiwi/untitled.fbx");
+		if (rKeyState.m_keyPush[i])
+		{
+			m_canSelectMenu = true;
 
-		D3DXCreateTextureFromFile(pDirectX3DDevice,
-			_T("2DTextures/circle.png"),
-			&pTexture);
-
-		++frame;
+			return;
+		}
 	}
 
-	D3DXVECTOR2 displaySize;
-	m_pGameManager->GetDisplaySize(&displaySize);
+	if (!m_canSelectMenu)return;														//入力待ちを状態でキーを入力していない場合menu選択はできない
 
-	CustomVertex background[4];
+	//メニューの選択 開始//
 
-	D3DXVECTOR2 halfBackgroundSize;
-	D3DXVECTOR3 backgroundCenter(0.0f,0.0f,1.0f);
-
-	for (int n = 0; n < 32; ++n)
+	if (rKeyState.m_keyPush[DIK_W] || rKeyState.m_keyPush[DIK_NUMPAD8])					//menuの切替
 	{
-		halfBackgroundSize.x = ((-n)+(frame/3))* 2.0f;
-		halfBackgroundSize.y = halfBackgroundSize.x;
+		MenuID menuReelTmp[MENU_MAX] = { m_menuReel[1],m_menuReel[2],m_menuReel[0] };	//ボタンが押されるとmenuReelの中身がずれていく
 
-		backgroundCenter.x = displaySize.x/32*(float)(n+1);
-
-			for (int i = 0; i < 18; ++i)
-			{
-				backgroundCenter.y = displaySize.y /18* (float)(i+1);
-				m_pCustomVertices->Create(background, &backgroundCenter, &halfBackgroundSize,0xFFDDDD11);
-
-				m_pDraw->Render(background, pTexture);
-			}
+		memcpy(&m_menuReel, &menuReelTmp, sizeof(MenuID)*MENU_MAX);
 	}
 
-	D3DXVECTOR4 eiwiEmissive(0.0f, 0.3f, 0.3f, 0.01f);
-	starFBX.SetEmissive(&eiwiEmissive);
-
-	D3DXMATRIX			matWorld;
-	D3DXMatrixIdentity(&matWorld);
-
-	D3DXMATRIX			matScal;
-	D3DXMatrixScaling(&matScal, 1.06f, 1.06f, 1.06f);
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matScal);
-
-	D3DXMATRIX			matPitch;
-	D3DXMatrixRotationX(&matPitch, D3DXToRadian(frame*0.0f));
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matPitch);
-
-	D3DXMATRIX			matYaw;
-	D3DXMatrixRotationY(&matYaw, D3DXToRadian(frame*3.0f));
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matYaw);
-
-	D3DXMATRIX			matRoll;
-	D3DXMatrixRotationZ(&matRoll, D3DXToRadian(frame*3.0f));
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matRoll);
-
-	D3DXVECTOR3 matPos(0.0f, -0.0f, 4.0f);
-
-	D3DXMATRIX			matPosition;	// 位置座標行列
-	D3DXMatrixTranslation(&matPosition, matPos.x, matPos.y, matPos.z);
-	D3DXMatrixMultiply(&matWorld, &matWorld, &matPosition);
-
-	m_pDraw->Render(&starFBX, &matWorld, NULL);
-
-	static bool canBack = false;
-
-	if (canBack)
+	if (rKeyState.m_keyPush[DIK_S] || rKeyState.m_keyPush[DIK_NUMPAD2])
 	{
-		--frame;
+		MenuID menuReelTmp[MENU_MAX] = { m_menuReel[2],m_menuReel[0],m_menuReel[1] };
+
+		memcpy(&m_menuReel, &menuReelTmp, sizeof(MenuID)*MENU_MAX);
 	}
 
-	if (frame <0)
+	if (rKeyState.m_keyPush[DIK_RETURN])												//menuの選択
 	{
-		canBack = false;
-	}
+		switch (m_menuReel[M_SELECTING_MENU])
+		{
+		case NEW_GAME:
+			m_canSelectMenu = false;
 
-	if (!canBack)
-	{
-		++frame;
-	}
+			//m_pNextScene = 
 
-	if (frame > 90)
-	{
-		canBack = true;
+			break;
+
+		case LOAD_GAME:
+			//m_pNextScene = 
+			m_canSelectMenu = false;
+
+			break;
+
+		case END_GAME:
+			//m_pNextScene = 
+			m_canSelectMenu = false;
+
+			break;
+
+		default:
+			break;
+		}
 	}
+	//メニューの選択 終了//
 }
 
 VOID TitleScene::Render()
 {
+	//初期化 開始//
+	if (m_frame == -1)
+	{
+		m_frame = 0;
+
+		m_pFileManager->CreateTex(_T("Back"), _T("2DTextures/Title/TitleBack.png"));	//画像読み込み
+		m_pFileManager->CreateTex(_T("Logo"), _T("2DTextures/Title/TitleLogo.png"));
+		m_pFileManager->CreateTex(_T("WaitInput"), _T("2DTextures/Title/TitleWaitInput.png"));
+		m_pFileManager->CreateTex(_T("NewGame"), _T("2DTextures/Title/TitleMenuNewGame.png"));
+		m_pFileManager->CreateTex(_T("LoadGame"), _T("2DTextures/Title/TitleMenuLoadGame.png"));
+		m_pFileManager->CreateTex(_T("EndGame"), _T("2DTextures/Title/TitleMenuEndGame.png"));
+		m_pFileManager->CreateTex(_T("StarEffect"), _T("2DTextures/Title/StarEffect.png"));
+		m_pFileManager->CreateTex(_T("OverStarEffect"), _T("2DTextures/Title/OverStarEffect.png"));
+
+		srand((unsigned int)(time(NULL)));
+	}
+	//初期化 終了//
+
+	D3DXVECTOR2 windowSize;	//windowのサイズ
+	m_pGameManager->GetDisplaySize(&windowSize);
+
+	//背景の描画 開始//クラスにするかもしれない
+	D3DXVECTOR3 backCenter(windowSize.x*0.5f, windowSize.y*0.5f, 1.0f);
+	D3DXVECTOR2 halfBackScale = windowSize * 0.5f;
+	CustomVertex back[4];
+
+	m_pCustomVertices->Create(back, &backCenter, &halfBackScale);		//頂点データのセット
+
+	m_pDraw->Render(back, m_pFileManager->GetTex(_T("Back")));			//描画
+	//背景の描画 終了//
+
+	//エフェクトの描画 開始//
+	const int STAR_EFFECT_MAX = 600;
+
+	const int STAR_EFFECT_COLORS_MAX = 11;
+	const DWORD STAR_EFFECT_COLORS[STAR_EFFECT_COLORS_MAX] =
+	{
+		D3DCOLOR_ARGB(220,63,255,20),
+		D3DCOLOR_ARGB(220,20,255,95),
+		D3DCOLOR_ARGB(220,20,255,212),
+		D3DCOLOR_ARGB(220,20,181,255),
+		D3DCOLOR_ARGB(220,20,63,255),
+		D3DCOLOR_ARGB(220,95,20,255),
+		D3DCOLOR_ARGB(220,212,20,255),
+		D3DCOLOR_ARGB(220,255,20,181),
+		D3DCOLOR_ARGB(220,255,20,63),
+		D3DCOLOR_ARGB(220,255,95,20),
+		D3DCOLOR_ARGB(220,255,212,20),
+	};
+
+	static starEffect starEffects[STAR_EFFECT_MAX];
+	D3DXVECTOR2 halfstarEffectScale(windowSize.x*0.0026f, windowSize.y*0.6f);//0.0027,0.6
+	D3DXVECTOR3 unitStarEffectMovement(0.0f, 60.0f, 0.0f);
+	D3DXMATRIX matRotate;
+
+	for (int i = 0; i < STAR_EFFECT_MAX; ++i)
+	{
+		if (starEffects[i].m_stageCount == starEffect::M_INIT_STAR_EFFECT_COUNT)
+		{
+			starEffects[i].m_stageCount = -(rand() % 300);
+
+			starEffects[i].m_rotationDegree.x = 0.0f;
+			starEffects[i].m_rotationDegree.y = 0.0f;
+			starEffects[i].m_rotationDegree.z = (float)(rand() % 30 + 30);
+
+			D3DXMatrixRotationZ(&matRotate, D3DXToRadian(starEffects[i].m_rotationDegree.z));
+
+			D3DXVec3TransformCoord(&starEffects[i].m_movement, &unitStarEffectMovement, &matRotate);
+
+			starEffects[i].m_center.x = (float)(rand() % ((int)(windowSize.x))) + windowSize.x*3.0f;
+			starEffects[i].m_center.y = -4000.0f - rand() % 5000000;
+			starEffects[i].m_center.z = 0.99f;
+
+			starEffects[i].m_color = STAR_EFFECT_COLORS[rand() % STAR_EFFECT_COLORS_MAX];
+		}
+
+		D3DXVec3Add(&starEffects[i].m_center, &starEffects[i].m_center, &starEffects[i].m_movement);
+
+		m_pCustomVertices->Create(starEffects[i].m_vertices, &starEffects[i].m_center, &halfstarEffectScale, starEffects[i].m_color);
+
+		D3DXVECTOR3 starEffectRerativeRotatePos(0.0f, 0.0f, 0.0f);
+		m_pCustomVertices->RotateZ(starEffects[i].m_vertices, starEffects[i].m_rotationDegree.z, &starEffectRerativeRotatePos);
+
+		if (starEffects[i].m_stageCount > 0)
+		{
+			m_pDraw->Render(starEffects[i].m_vertices, m_pFileManager->GetTex(_T("StarEffect")));
+
+			m_pCustomVertices->SetColor(starEffects[i].m_vertices, D3DCOLOR_ARGB(130, 255, 255, 255));
+			m_pDraw->Render(starEffects[i].m_vertices, m_pFileManager->GetTex(_T("OverStarEffect")));
+		}
+
+		++starEffects[i].m_stageCount;
+		if (starEffects[i].m_stageCount == 120)
+		{
+			starEffects[i].m_stageCount = starEffect::M_INIT_STAR_EFFECT_COUNT;
+		}
+	}
+	//エフェクトの描画 終了//
+
+	//ロゴの描画 開始//クラスにするかもしれない
+	D3DXVECTOR3 logoCenter(windowSize.x*0.5f, windowSize.y*0.35f, 0.98f);
+	D3DXVECTOR2 halflogoScale(windowSize.x * 0.29f, windowSize.y * 0.2f);
+	CustomVertex logo[4];
+
+	m_pCustomVertices->Create(logo, &logoCenter, &halflogoScale, D3DCOLOR_ARGB(230, 255, 255, 255));	//頂点データのセット
+
+	m_pDraw->Render(logo, m_pFileManager->GetTex(_T("Logo")));											//描画
+	//ロゴの描画 終了//
+
+	if (!m_canSelectMenu)
+	{
+		//入力待ちテキストの描画 開始//クラスにするかもしれない
+		D3DXVECTOR3 waitInputCenter(windowSize.x*0.5f, windowSize.y*0.78f, 0.98f);
+		D3DXVECTOR2 halfwaitInputScale(windowSize.x * 0.07f, windowSize.y * 0.035f);
+		CustomVertex waitInput[4];
+
+		const int FLASH_COUNT_MAX = 127;																											//flashCountの最大値
+		static unsigned char flashCount = FLASH_COUNT_MAX;																							//テキストの点滅に用いるカウンタ
+
+		static bool canCountUp = false;																												//アルファ値の折り返しを決定するフラグ
+
+		m_pCustomVertices->Create(waitInput, &waitInputCenter, &halfwaitInputScale, D3DCOLOR_ARGB((int)(flashCount*1.5f) + 30, 255, 255, 255));		//頂点データのセット
+
+		if (flashCount == FLASH_COUNT_MAX)canCountUp = false;																						//アルファ値の折り返し設定
+		if (flashCount == 0)canCountUp = true;
+
+		flashCount = (canCountUp) ? ++flashCount : --flashCount;																					//canCountUpがtrueなら+ falseなら-
+
+		m_pDraw->Render(waitInput, m_pFileManager->GetTex(_T("WaitInput")));																		//描画
+		//入力待ちテキストの描画 終了//
+	}
+
+	if (m_canSelectMenu)
+	{
+		//menuテキストの描画 開始//クラスにするかもしれない
+		for (int i = 0; i < MENU_MAX; ++i)
+		{
+			D3DXVECTOR3 menuCenter(windowSize.x*0.5f, windowSize.y*(0.65f + 0.07f*i), 0.98f);
+
+			D3DXVECTOR2 halfMenuScale(windowSize.x*0.055f, windowSize.y*0.029f);
+
+			CustomVertex menu[4];
+
+			m_pCustomVertices->Create(menu, &menuCenter, &halfMenuScale, D3DCOLOR_ARGB(200, 255, 255, 255));
+
+			if (i == M_SELECTING_MENU)																				//選ばれているmenuは拡大する
+			{
+				const float SELECTING_MENU_SCALE_MULTIPLY = 1.5f;													//拡大率
+				halfMenuScale.x *= SELECTING_MENU_SCALE_MULTIPLY;
+				halfMenuScale.y *= SELECTING_MENU_SCALE_MULTIPLY;
+
+				m_pCustomVertices->Create(menu, &menuCenter, &halfMenuScale, D3DCOLOR_ARGB(230, 255, 255, 255));	//頂点データのセット
+			}
+
+			switch (m_menuReel[i])																					//描画
+			{
+			case NEW_GAME:
+				m_pDraw->Render(menu, m_pFileManager->GetTex(_T("NewGame")));
+
+				break;
+
+			case LOAD_GAME:
+				m_pDraw->Render(menu, m_pFileManager->GetTex(_T("LoadGame")));
+
+				break;
+
+			case END_GAME:
+				m_pDraw->Render(menu, m_pFileManager->GetTex(_T("EndGame")));
+
+				break;
+
+			default:
+				break;
+			}
+		}
+		//menuテキストの描画 終了//
+	}
+
+	++m_frame;						//初めから何フレームたったか
+
+	if (m_frame < 0)m_frame = 0;	//オーバーフローしたら0代入
 }

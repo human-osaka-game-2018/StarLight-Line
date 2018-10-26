@@ -18,14 +18,15 @@ public:
 
 	VOID syncNextScene(SceneID* pNextScene);
 
-	VOID syncLibInstance(GameManager* pGameManager, CustomVertices* pCustomVertices, Draw* pDraw, InputData inputData);
+	VOID syncLibInstance(GameManager* pGameManager, CustomVertices* pCustomVertices, Draw* pDraw, InputData inputData, FileManager* pFileManager);
 
 protected:
 	static SceneID* m_pNextScene;
 	GameManager* m_pGameManager;
 	CustomVertices* m_pCustomVertices;
 	Draw* m_pDraw;
+	FileManager* m_pFileManager;
 	InputData m_inputData;
 	BaseWorkingManager m_sceneObjectManager;
-	FileManager m_fileManager;
+	LONGLONG m_frame = -1;
 };
