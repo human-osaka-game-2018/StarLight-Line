@@ -8,7 +8,7 @@ public:
 
 	BOOL CoordinateFrame();
 	VOID UpdateTime();
-	VOID DeleteInstance();
+	VOID Release();
 
 private:
 	FPS();

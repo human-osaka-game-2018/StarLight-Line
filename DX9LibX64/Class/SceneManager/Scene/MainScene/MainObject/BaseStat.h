@@ -1,11 +1,8 @@
 #pragma once
-#include "../../../../BaseWorking/BaseWorking.h"
 #include <d3dx9.h>
-#include <crtdbg.h>
-#include <cstdio>
-#include <cstdlib>
-#define _CRTDBG_MAP_ALLOC
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#include "../../../../BaseWorking/BaseWorking.h"
+
+class  BaseWorking;
 
 /*
 *ベーススタークラス(基底クラス)
@@ -15,9 +12,6 @@ class BaseStar:public BaseWorking
 public:
 	BaseStar() {};
 	~BaseStar() {};
-
-	virtual VOID Update() = 0;
-	virtual VOID Render() = 0;
 
 protected:
 	VOID PosOfStarYCoordinate();

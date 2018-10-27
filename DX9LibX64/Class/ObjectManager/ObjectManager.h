@@ -8,22 +8,21 @@
 #include "../Draw/Draw.h"
 #include "../FileManager/FileManager.h"
 #include "../BaseWorking/BaseWorkingManager/BaseWorkingManager.h"
-#include "Object2D\Object2D.h"
+#include "Object\Object.h"
 
-class Object2DManager:public BaseWorkingManager
+class Object;
+
+class ObjectManager
 {
 public:
-	Object2DManager();
-	~Object2DManager() {};
+	ObjectManager();
+	~ObjectManager();
 
+	virtual VOID Resist(Object* pObject);
 	virtual VOID Control();
 	virtual VOID Render();
 private:
-	static bool cmpLarge(Object2D* p1, Object2D* p2);
+	static bool cmpLarge(Object* p1, Object* p2);
 
-	GameManager* m_pGameManager;
-	CustomVertices* m_pCustomVertices;
-	Draw* m_pDraw;
-	FileManager* m_pFileManager;
-	InputData m_inputData;
+	std::vector<Object*>m_VPObjects;
 };

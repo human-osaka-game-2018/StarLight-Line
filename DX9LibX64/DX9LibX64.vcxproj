@@ -138,8 +138,8 @@
     <ClCompile Include="Class\GameManager\GameManager.cpp" />
     <ClCompile Include="Class\GameManager\Light\Light.cpp" />
     <ClCompile Include="Class\GameManager\Window\Window.cpp" />
-    <ClCompile Include="Class\Object2DManager\Object2DManager.cpp" />
-    <ClCompile Include="Class\Object2DManager\Object2D\Object2D.cpp" />
+    <ClCompile Include="Class\ObjectManager\ObjectManager.cpp" />
+    <ClCompile Include="Class\ObjectManager\Object\Object.cpp" />
     <ClCompile Include="Class\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStar.cpp" />
@@ -167,8 +167,8 @@
     <ClInclude Include="Class\GameManager\GameManager.h" />
     <ClInclude Include="Class\GameManager\Light\Light.h" />
     <ClInclude Include="Class\GameManager\Window\Window.h" />
-    <ClInclude Include="Class\Object2DManager\Object2DManager.h" />
-    <ClInclude Include="Class\Object2DManager\Object2D\Object2D.h" />
+    <ClInclude Include="Class\ObjectManager\ObjectManager.h" />
+    <ClInclude Include="Class\ObjectManager\Object\Object.h" />
     <ClInclude Include="Class\SceneManager\SceneManager.h" />
     <ClInclude Include="Class\SceneManager\Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStat.h" />

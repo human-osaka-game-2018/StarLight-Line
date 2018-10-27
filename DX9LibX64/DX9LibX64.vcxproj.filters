@@ -12,9 +12,6 @@
     <Filter Include="Class\FBX">
       <UniqueIdentifier>{23a84baf-ed70-4e64-80ad-2cfb6ecf9316}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\FPS">
-      <UniqueIdentifier>{b892e18d-ce1b-478a-b9a9-b48051378d28}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\Vector">
       <UniqueIdentifier>{3ef55082-3a0f-4292-a574-83eccfa72768}</UniqueIdentifier>
     </Filter>
@@ -66,12 +63,6 @@
     <Filter Include="Class\GameManager\Light">
       <UniqueIdentifier>{d07d4db2-9835-4eb2-9c0a-9ec35a5466eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Object2DManager">
-      <UniqueIdentifier>{2ab1277a-e811-444d-8811-110f15e847ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Object2DManager\Object2D">
-      <UniqueIdentifier>{4d1cb6d9-6c73-430e-995d-0f0e4cc0f6e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\SceneManager\Scene\MainScene">
       <UniqueIdentifier>{b7877504-d4a6-4d1e-ab20-154d4ce1e176}</UniqueIdentifier>
     </Filter>
@@ -80,6 +71,15 @@
     </Filter>
     <Filter Include="Class\Timer">
       <UniqueIdentifier>{76c9d3cb-eae8-4458-8a01-af223b9368e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\ObjectManager">
+      <UniqueIdentifier>{2ab1277a-e811-444d-8811-110f15e847ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\ObjectManager\Object">
+      <UniqueIdentifier>{4d1cb6d9-6c73-430e-995d-0f0e4cc0f6e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameManager\FPS">
+      <UniqueIdentifier>{b892e18d-ce1b-478a-b9a9-b48051378d28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -95,7 +95,7 @@
       <Filter>Class\FBX</Filter>
     </ClCompile>
     <ClCompile Include="Class\FPS\FPS.cpp">
-      <Filter>Class\FPS</Filter>
+      <Filter>Class\GameManager\FPS</Filter>
     </ClCompile>
     <ClCompile Include="Class\Vector\Vector.cpp">
       <Filter>Class\Vector</Filter>
@@ -148,12 +148,6 @@
     <ClCompile Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.cpp">
       <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
     </ClCompile>
-    <ClCompile Include="Class\Object2DManager\Object2DManager.cpp">
-      <Filter>Class\Object2DManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Class\Object2DManager\Object2D\Object2D.cpp">
-      <Filter>Class\Object2DManager\Object2D</Filter>
-    </ClCompile>
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainScene.cpp">
       <Filter>Class\SceneManager\Scene\MainScene</Filter>
     </ClCompile>
@@ -169,6 +163,12 @@
     <ClCompile Include="Class\Timer\Timer.cpp">
       <Filter>Class\Timer</Filter>
     </ClCompile>
+    <ClCompile Include="Class\ObjectManager\ObjectManager.cpp">
+      <Filter>Class\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Class\ObjectManager\Object\Object.cpp">
+      <Filter>Class\ObjectManager\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\FBX\FbxModel.h">
@@ -178,7 +178,7 @@
       <Filter>Class\FBX</Filter>
     </ClInclude>
     <ClInclude Include="Class\FPS\FPS.h">
-      <Filter>Class\FPS</Filter>
+      <Filter>Class\GameManager\FPS</Filter>
     </ClInclude>
     <ClInclude Include="Class\Vector\Vector.h">
       <Filter>Class\Vector</Filter>
@@ -191,9 +191,6 @@
     </ClInclude>
     <ClInclude Include="Class\GameManager\GameManager.h">
       <Filter>Class\GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Class\SceneManager\SceneManager.h">
-      <Filter>Class\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="Class\SceneManager\Scene\Scene.h">
       <Filter>Class\SceneManager\Scene</Filter>
@@ -231,12 +228,6 @@
     <ClInclude Include="Class\BaseWorking\BaseWorkingManager\BaseWorkingManager.h">
       <Filter>Class\BaseWorking\BaseWorkingManager</Filter>
     </ClInclude>
-    <ClInclude Include="Class\Object2DManager\Object2DManager.h">
-      <Filter>Class\Object2DManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Class\Object2DManager\Object2D\Object2D.h">
-      <Filter>Class\Object2DManager\Object2D</Filter>
-    </ClInclude>
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainScene.h">
       <Filter>Class\SceneManager\Scene\MainScene</Filter>
     </ClInclude>
@@ -251,6 +242,15 @@
     </ClInclude>
     <ClInclude Include="Class\Timer\Timer.h">
       <Filter>Class\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\ObjectManager\ObjectManager.h">
+      <Filter>Class\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\ObjectManager\Object\Object.h">
+      <Filter>Class\ObjectManager\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\SceneManager.h">
+      <Filter>Class\SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

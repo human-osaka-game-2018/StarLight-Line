@@ -136,7 +136,7 @@ BOOL Window::GetWindowMode()
 	return m_canWindow;
 }
 
-VOID Window::DeleteInstance()
+VOID Window::Release()
 {
 	delete m_pWindow;
 }

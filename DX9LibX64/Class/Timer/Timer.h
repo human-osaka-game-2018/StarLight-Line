@@ -15,7 +15,6 @@
 class Timer
 {
 public:
-
 	static Timer* GetInstance();	//インスタンスを生成する
 	void Relese();					//インスタンスを破棄する
 

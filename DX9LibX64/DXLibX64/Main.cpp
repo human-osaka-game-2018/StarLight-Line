@@ -45,5 +45,5 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 
 	pSceneManager->Release();
 
-	return pGameManager->DeleteInstance();
+	return pGameManager->Release();
 }

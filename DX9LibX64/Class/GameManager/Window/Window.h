@@ -14,7 +14,7 @@ public:
 	MSG GetMSG();
 	BOOL ConfirmMessage();
 	BOOL GetWindowMode();
-	VOID DeleteInstance();
+	VOID Release();
 
 private:
 	Window(const HINSTANCE hInst, TCHAR* pAppName);
