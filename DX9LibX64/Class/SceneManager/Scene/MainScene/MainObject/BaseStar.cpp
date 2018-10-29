@@ -8,8 +8,8 @@ VOID BaseStar::PosOfStarYCoordinate()
 
 VOID BaseStar::FollingStarPosYTime(const LONGLONG& CurrentTime)
 {
-	static GameManager* pGameManager = GameManager::CopyInstance();
+	m_pGameManager->CopyInstance();
 	D3DXVECTOR2 DisplaySize;
-	pGameManager->GetDisplaySize(&DisplaySize);
+	m_pGameManager->GetDisplaySize(&DisplaySize);
 	m_Pos.y = -(m_Time - CurrentTime / 1000.f) + DisplaySize.y;
 }

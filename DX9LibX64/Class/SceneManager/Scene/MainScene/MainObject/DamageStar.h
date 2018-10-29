@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseStat.h"
+#include "../../../../FBX/FbxRelated.h"
 #include <crtdbg.h>
 #include <cstdio>
 #include <cstdlib>
@@ -9,9 +10,13 @@
 class DamageStar :public BaseStar
 {
 public:
+	DamageStar();
+	~DamageStar();
+
 	VOID Update();
 	VOID Render();
 
 private:
 	int m_Damage;
+	FbxRelated m_FbxRelated;
 };

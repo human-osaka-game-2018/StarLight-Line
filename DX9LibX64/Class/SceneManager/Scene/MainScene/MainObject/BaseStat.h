@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../../BaseWorking/BaseWorking.h"
+#include "../../../../Object2DManager/Object2D/Object2D.h"
 #include <d3dx9.h>
 #include <crtdbg.h>
 #include <cstdio>
@@ -10,7 +10,7 @@
 /*
 *ベーススタークラス(基底クラス)
 */
-class BaseStar:public BaseWorking
+class BaseStar :public Object2D
 {
 public:
 	BaseStar() {};
@@ -20,8 +20,8 @@ public:
 	virtual VOID Render() = 0;
 
 protected:
-	VOID PosOfStarYCoordinate();
-	VOID FollingStarPosYTime(const LONGLONG& CurrentTime);
+	VOID PosOfStarYCoordinate();								//落ちてくる時間設定関数
+	VOID FollingStarPosYTime(const LONGLONG& CurrentTime);		//y座標を移動させる関数
 
 	D3DXVECTOR3	m_Pos;				//x,y,z座標
 	DWORD m_Color;					//星の色
