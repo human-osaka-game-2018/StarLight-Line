@@ -278,9 +278,9 @@ VOID CustomVertices::Create(CustomVertex *pCustomVertices, const ObjectData*pObj
 {
 	for (int i = 0; i < M_RECT_VERTICES_NUM; ++i)
 	{
-		pCustomVertices->m_pos = pObjectData->m_center;
-		pCustomVertices[i].m_pos.x += (i % 3) ? pObjectData->m_scale.x : -(pObjectData->m_scale.x);
-		pCustomVertices[i].m_pos.x += (i / 2) ? pObjectData->m_scale.y : -(pObjectData->m_scale.y);
+		pCustomVertices[i].m_pos = pObjectData->m_center;
+		pCustomVertices[i].m_pos.x += (i % 3) ? pObjectData->m_halfScale.x : -(pObjectData->m_halfScale.x);
+		pCustomVertices[i].m_pos.y += (i / 2) ? pObjectData->m_halfScale.y : -(pObjectData->m_halfScale.y);
 
 		pCustomVertices[i].m_aRGB = pObjectData->m_color;
 	}

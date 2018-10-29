@@ -19,12 +19,6 @@ Object::Object(Scene* pScene)
 
 Object::~Object()
 {
-	for (ObjectData* pI : m_pObjectDatas)
-	{
-		delete pI;
-	}
-
-	m_pObjectDatas.shrink_to_fit();
 }
 
 Type Object::GetType()
@@ -34,5 +28,5 @@ Type Object::GetType()
 
 FLOAT Object::GetZ()
 {
-	return m_pObjectDatas[0]->m_center.z;
+	return m_z;
 }

@@ -8,7 +8,7 @@
 #include "../../CustomVertices/CustomVertices.h"
 #include "../../SceneManager/Scene/Scene.h"
 
-enum Type
+enum class Type
 {
 	BACK,
 	OPACTY,
@@ -19,10 +19,10 @@ enum Type
 
 struct ObjectData
 {
-	D3DXVECTOR3 m_center;
-	D3DXVECTOR3 m_scale;
-	D3DXVECTOR3 m_degree;
-	DWORD m_color;
+	D3DXVECTOR3 m_center = { 0.0f,0.0f,0.0f };
+	D3DXVECTOR3 m_halfScale = { 0.0f,0.0f,0.0f };
+	D3DXVECTOR3 m_degree = { 0.0f,0.0f,0.0f };
+	DWORD m_color = 0xFFFFFFFF;
 };
 
 class CustomVertices;
@@ -42,8 +42,8 @@ public:
 
 protected:
 	Type m_type;
-	std::vector<ObjectData*> m_pObjectDatas;
 	GameManager* m_pGameManager;
 	InputData* m_pInputData;
 	Scene* m_pScene;
+	FLOAT m_z;
 };

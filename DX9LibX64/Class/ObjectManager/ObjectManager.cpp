@@ -53,7 +53,7 @@ VOID ObjectManager::Render()
 
 	for (Object* pI : VPSortObjects)
 	{
-		pI->Update();
+		pI->Render();
 	}
 }
 
