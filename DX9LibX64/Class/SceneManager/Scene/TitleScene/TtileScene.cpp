@@ -14,11 +14,13 @@ class GameManager;
 
 TitleScene::TitleScene()
 {
-	m_sceneObjectManager.Resist(new TitleBack((Scene*)this));
-	m_sceneObjectManager.Resist(new TitleLogo((Scene*)this));
-	m_sceneObjectManager.Resist(new TitleInputPrompt((Scene*)this));
-	m_sceneObjectManager.Resist(new TitleMenu((Scene*)this));
-	m_sceneObjectManager.Resist(new TitleStarEffect((Scene*)this));
+	Scene* pThisScene = (Scene*)this;
+
+	m_sceneObjectManager.Resist(new TitleBack(pThisScene));
+	m_sceneObjectManager.Resist(new TitleLogo(pThisScene));
+	m_sceneObjectManager.Resist(new TitleInputPrompt(pThisScene));
+	m_sceneObjectManager.Resist(new TitleMenu(pThisScene));
+	m_sceneObjectManager.Resist(new TitleStarEffect(pThisScene));
 }
 
 TitleScene::~TitleScene()

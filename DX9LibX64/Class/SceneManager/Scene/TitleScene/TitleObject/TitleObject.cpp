@@ -12,19 +12,19 @@ TitleBack::TitleBack(Scene* pScene) :Object(pScene)
 
 VOID TitleBack::Init()
 {
-	m_type = Type::BACK;
-	m_z = 1.0f;
-
-	static bool canInit = true;
+	static BOOL canInit = true;														//一度しか初期化されないようにする
 	if (!canInit)return;
 	canInit = false;
+
+	m_type = Type::BACK;															//描画タイプ 背景
+	m_z = 1.0f;																		//描画するときのZ値 これにより描画順を決めている
 
 	m_pGameManager->CreateTex(_T("Back"), _T("2DTextures/Title/TitleBack.png"));	//画像読み込み
 }
 
 VOID TitleBack::Render()
 {
-	D3DXVECTOR2 windowSize;	//windowのサイズ
+	D3DXVECTOR2 windowSize;													//windowのサイズ
 	m_pGameManager->GetDisplaySize(&windowSize);
 
 	ObjectData data;
@@ -32,9 +32,9 @@ VOID TitleBack::Render()
 	data.m_halfScale = { windowSize.x * 0.5f ,windowSize.y * 0.5f,0.0f };
 
 	CustomVertex back[4];
-	m_pGameManager->Create(back, &data);								//頂点データのセット
+	m_pGameManager->Create(back, &data);									//頂点データの作成
 
-	m_pGameManager->Render(back, m_pGameManager->GetTex(_T("Back")));	//描画
+	m_pGameManager->Render(back, m_pGameManager->GetTex(_T("Back")));		//描画
 }
 
 TitleLogo::TitleLogo(Scene* pScene) :Object(pScene)
@@ -44,12 +44,12 @@ TitleLogo::TitleLogo(Scene* pScene) :Object(pScene)
 
 VOID TitleLogo::Init()
 {
-	m_type = Type::TRANSPARENCY;
-	m_z = 0.98f;
-
-	static bool canInit = true;
+	static BOOL canInit = true;
 	if (!canInit)return;
 	canInit = false;
+
+	m_type = Type::TRANSPARENCY;
+	m_z = 0.98f;
 
 	m_pGameManager->CreateTex(_T("Logo"), _T("2DTextures/Title/TitleLogo.png"));
 }
@@ -65,7 +65,7 @@ VOID TitleLogo::Render()
 	data.m_halfScale = { windowSize.x * 0.29f ,windowSize.y * 0.2f,0.0f };
 
 	CustomVertex logo[4];
-	m_pGameManager->Create(logo, &data);								//頂点データのセット
+	m_pGameManager->Create(logo, &data);								//頂点データの作成
 
 	m_pGameManager->Render(logo, m_pGameManager->GetTex(_T("Logo")));	//描画
 }
@@ -77,12 +77,12 @@ TitleInputPrompt::TitleInputPrompt(Scene* pScene) :Object(pScene)
 
 VOID TitleInputPrompt::Init()
 {
-	m_type = Type::TRANSPARENCY;
-	m_z = 0.98f;
-
-	static bool canInit = true;
+	static BOOL canInit = true;
 	if (!canInit)return;
 	canInit = false;
+
+	m_type = Type::TRANSPARENCY;
+	m_z = 0.98f;
 
 	m_pGameManager->CreateTex(_T("WaitInput"), _T("2DTextures/Title/TitleWaitInput.png"));
 }
@@ -125,9 +125,9 @@ VOID TitleInputPrompt::Render()
 	data.m_color = D3DCOLOR_ARGB((INT)(flashCount*1.5f) + 30, 255, 255, 255);	//カウンタを用いてアルファ値を増減させる
 
 	CustomVertex waitInput[4];
-	m_pGameManager->Create(waitInput, &data);									//頂点データのセット
+	m_pGameManager->Create(waitInput, &data);									//頂点データの作成
 
-	static bool canCountUp = false;												//アルファ値の折り返しを決定するフラグ
+	static BOOL canCountUp = false;												//アルファ値の折り返しを決定するフラグ
 	if (flashCount == FLASH_COUNT_MAX)canCountUp = false;						//アルファ値の折り返し設定
 	if (flashCount == 0)canCountUp = true;
 	flashCount = (canCountUp) ? ++flashCount : --flashCount;					//canCountUpがtrueなら+ falseなら-
@@ -142,12 +142,12 @@ TitleMenu::TitleMenu(Scene* pScene) :Object(pScene)
 
 VOID TitleMenu::Init()
 {
-	m_type = Type::TRANSPARENCY;
-	m_z = 0.98f;
-
-	static bool canInit = true;
+	static BOOL canInit = true;
 	if (!canInit)return;
 	canInit = false;
+
+	m_type = Type::TRANSPARENCY;
+	m_z = 0.98f;
 
 	m_pGameManager->CreateTex(_T("NewGame"), _T("2DTextures/Title/TitleMenuNewGame.png"));
 	m_pGameManager->CreateTex(_T("LoadGame"), _T("2DTextures/Title/TitleMenuLoadGame.png"));
@@ -158,9 +158,9 @@ BOOL TitleMenu::PreventDecideMenuUnintended()
 {
 	TitleScene* pTitleScene = dynamic_cast<TitleScene*>(m_pScene);
 
-	static bool isChanging = false;																		//ボタンが押されメニューが表示された直後かフラグ
-	if (!pTitleScene->GetCanSelectMenu())																//上のフラグがtrueならenterでメニュー表示がtrueになった場合,
-	{																									//意図せずメニューを選んでしまうので一度return
+	static BOOL isChanging = false;			//ボタンが押されメニューが表示された直後かフラグ
+	if (!pTitleScene->GetCanSelectMenu())
+	{
 		isChanging = false;
 
 		return true;
@@ -168,8 +168,8 @@ BOOL TitleMenu::PreventDecideMenuUnintended()
 
 	if (pTitleScene->GetCanSelectMenu())
 	{
-		if (isChanging == false)
-		{
+		if (isChanging == false)			//上のフラグがtrueならenterでメニュー表示がtrueになった場合,									
+		{									//意図せずメニューを選んでしまうので一度return
 			isChanging = true;
 
 			return true;
@@ -245,7 +245,7 @@ VOID TitleMenu::Render()
 		return;
 	}
 
-	D3DXVECTOR2 windowSize;										//windowのサイズ
+	D3DXVECTOR2 windowSize;																//windowのサイズ
 	m_pGameManager->GetDisplaySize(&windowSize);
 
 	ObjectData data;
@@ -261,15 +261,15 @@ VOID TitleMenu::Render()
 			m_pGameManager->Create(menu, &data);
 		}
 
-		if (i == M_SELECTING_MENU)								//選ばれているmenuは拡大する
+		if (i == M_SELECTING_MENU)														//選ばれているmenuは拡大する
 		{
 			const FLOAT SELECTING_MENU_SCALE_MULTIPLY = 1.5f;
-			data.m_halfScale *= SELECTING_MENU_SCALE_MULTIPLY;	//拡大率				
+			data.m_halfScale *= SELECTING_MENU_SCALE_MULTIPLY;							//拡大率				
 
-			m_pGameManager->Create(menu, &data);				//頂点データのセット
+			m_pGameManager->Create(menu, &data);										//頂点データのセット
 		}
 
-		switch (m_menuReel[i])									//描画
+		switch (m_menuReel[i])															//描画
 		{
 		case NEW_GAME:
 			m_pGameManager->Render(menu, m_pGameManager->GetTex(_T("NewGame")));
@@ -302,7 +302,7 @@ VOID TitleStarEffect::Init()
 	m_type = Type::TRANSPARENCY;
 	m_z = 0.99f;
 
-	static bool canInit = true;
+	static BOOL canInit = true;
 	if (!canInit)return;
 	canInit = false;
 
@@ -312,10 +312,10 @@ VOID TitleStarEffect::Init()
 
 VOID TitleStarEffect::Render()
 {
-	D3DXVECTOR2 windowSize;											//windowのサイズ
+	D3DXVECTOR2 windowSize;															//windowのサイズ
 	m_pGameManager->GetDisplaySize(&windowSize);
 
-	static const INT STAR_EFFECT_MAX = 15;							//星エフェクトの最大数
+	static const INT STAR_EFFECT_MAX = 15;											//星エフェクトの最大数
 	static const INT STAR_EFFECT_COLORS_MAX = 11;
 	static const DWORD STAR_EFFECT_COLORS[STAR_EFFECT_COLORS_MAX] =
 	{
@@ -333,8 +333,8 @@ VOID TitleStarEffect::Render()
 	};
 
 	static starEffect starEffects[STAR_EFFECT_MAX];
-	D3DXVECTOR3 halfstarEffectScale(windowSize.x*0.0025f, windowSize.y*0.6f, 0.0f);							//0.0027,0.6　デフォルトの大きさ
-	D3DXVECTOR3 unitStarEffectMovement(0.0f, 30.0f, 0.0f);													//速度
+	D3DXVECTOR3 halfstarEffectScale(windowSize.x*0.0025f, windowSize.y*0.6f, 0.0f);	//0.0027,0.6　デフォルトの大きさ
+	D3DXVECTOR3 unitStarEffectMovement(0.0f, 30.0f, 0.0f);							//速度
 
 	D3DXMATRIX matRotate;
 	for (INT i = 0; i < STAR_EFFECT_MAX; ++i)

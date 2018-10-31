@@ -56,12 +56,10 @@ private:
 	};
 
 	BOOL PreventDecideMenuUnintended();								//意図しないメニュー選択を防ぐ関数 trueならreturnする
-
 	VOID SelectMenu();												//メニューを選択する関数
 
 	MenuID m_menuReel[MENU_MAX] = { END_GAME,NEW_GAME,LOAD_GAME };	//表示用メニューの並び
-
-	const int M_SELECTING_MENU = 1;									//現在選ばれているメニューが入っているmenuReelの要素番号
+	const INT M_SELECTING_MENU = 1;									//現在選ばれているメニューが入っているmenuReelの要素番号
 };
 
 class TitleStarEffect :public Object
