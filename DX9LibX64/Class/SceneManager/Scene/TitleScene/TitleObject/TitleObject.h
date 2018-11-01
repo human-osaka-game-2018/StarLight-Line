@@ -3,7 +3,19 @@
 #include "../../../../ObjectManager/Object/Object.h"
 #include "../../Scene.h"
 
-class TitleBack :public Object
+class TitleScene;
+
+class TitleObject :public Object
+{
+public:
+	TitleObject(Scene* pScene);
+	~TitleObject() {};
+
+protected:
+	TitleScene * m_pTitleScene;
+};
+
+class TitleBack :public TitleObject
 {
 public:
 	TitleBack(Scene* pScene);
@@ -14,7 +26,7 @@ public:
 	VOID Render();
 };
 
-class TitleLogo :public Object
+class TitleLogo :public TitleObject
 {
 public:
 	TitleLogo(Scene* pScene);
@@ -25,7 +37,7 @@ public:
 	VOID Render();
 };
 
-class TitleInputPrompt :public Object
+class TitleInputPrompt :public TitleObject
 {
 public:
 	TitleInputPrompt(Scene* pScene);
@@ -34,9 +46,17 @@ public:
 	VOID Init();
 	VOID Update();
 	VOID Render();
+
+public:
+	VOID SetAlpha();
+	VOID ChangeFlashStrength();
+
+	ObjectData m_data;
+	const INT M_FLASH_COUNT_MAX = 127;		//flashCountの最大値
+	UCHAR m_flashCount = M_FLASH_COUNT_MAX;	//テキストの点滅に用いるカウンタ
 };
 
-class TitleMenu :public Object
+class TitleMenu :public TitleObject
 {
 public:
 	TitleMenu(Scene* pScene);
@@ -55,6 +75,8 @@ private:
 		MENU_MAX
 	};
 
+	VOID RotateMenuUp();
+	VOID RotateMenuDown();
 	BOOL PreventDecideMenuUnintended();								//意図しないメニュー選択を防ぐ関数 trueならreturnする
 	VOID SelectMenu();												//メニューを選択する関数
 
@@ -62,7 +84,7 @@ private:
 	const INT M_SELECTING_MENU = 1;									//現在選ばれているメニューが入っているmenuReelの要素番号
 };
 
-class TitleStarEffect :public Object
+class TitleStarEffect :public TitleObject
 {
 public:
 	TitleStarEffect(Scene* pScene);
@@ -81,4 +103,10 @@ private:
 		ObjectData m_data;
 		CustomVertex m_vertices[4];
 	};
+
+	VOID InitStarEffects(starEffect* pStarEffect);
+
+	D3DXVECTOR3 m_halfstarEffectScale;		//0.0027,0.6　デフォルトの大きさ
+	D3DXVECTOR3 m_unitStarEffectMovement;	//速度
+
 };

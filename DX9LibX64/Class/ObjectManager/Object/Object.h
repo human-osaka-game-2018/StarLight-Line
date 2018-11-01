@@ -41,9 +41,11 @@ public:
 	FLOAT GetZ();
 
 protected:
+	Scene* m_pScene;
 	Type m_type;
 	GameManager* m_pGameManager;
-	InputData* m_pInputData;
-	Scene* m_pScene;
+	KeyBoardState* m_pKeyState;
+	MouseState* m_pMouseState;
+	D3DXVECTOR2 m_windowSize;
 	FLOAT m_z;
 };

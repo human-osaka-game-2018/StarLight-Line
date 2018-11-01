@@ -12,7 +12,10 @@ Object::Object(Scene* pScene)
 
 	m_pGameManager = GameManager::CopyInstance();
 
-	m_pGameManager->GetInputData(&m_pInputData);
+	InputData* pInputData;
+	m_pGameManager->GetInputData(&pInputData);
+	m_pKeyState = &pInputData->m_keyBoardState;
+	m_pMouseState = &pInputData->m_mouseState;
 
 	Init();
 }
