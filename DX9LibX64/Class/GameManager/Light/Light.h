@@ -7,11 +7,11 @@
 class Light
 {
 public:
-	Light();
-	~Light();
+	Light() {};
+	~Light() {};
 
 	static VOID SetLPDIRECT3DDEVICE9(LPDIRECT3DDEVICE9 pDirectX3DDevice);
-	VOID SetLight();
+	VOID SetLight(D3DLIGHT9* pLight, INT lightIndex);
 private:
 	static LPDIRECT3DDEVICE9 m_pDirectX3DDevice;
 };

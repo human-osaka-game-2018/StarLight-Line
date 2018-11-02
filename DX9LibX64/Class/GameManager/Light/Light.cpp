@@ -1,15 +1,16 @@
-//#include <windows.h>
-//#include "Light.h"
-//
-//VOID Light::SetLight(INT lightIndex, D3DLIGHTTYPE lightType,const D3DXVECTOR3* pDirection)
-//{
-//	D3DLIGHT9 light;
-//
-//	ZeroMemory(&light, sizeof(D3DLIGHT9));
-//
-//	light.Type = lightType;
-//	light.Direction = *pDirection;
-//
-//
-//	m_pDirectX3DDevice->SetLight(lightIndex, &light);
-//}
+#include <windows.h>
+#include "Light.h"
+
+LPDIRECT3DDEVICE9 Light::m_pDirectX3DDevice;
+
+VOID Light::SetLPDIRECT3DDEVICE9(LPDIRECT3DDEVICE9 pDirectX3DDevice)
+{
+	m_pDirectX3DDevice = pDirectX3DDevice;
+}
+
+VOID Light::SetLight(D3DLIGHT9* pLight,INT lightIndex)
+{
+	D3DLIGHT9 light;
+
+	m_pDirectX3DDevice->SetLight(lightIndex, &light);
+}

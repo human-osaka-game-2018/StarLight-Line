@@ -24,7 +24,7 @@ VOID TitleBack::Init()
 	m_type = Type::BACK;															//描画タイプ 背景
 	m_z = 1.0f;																		//描画するときのZ値 これにより描画順を決めている
 
-	m_pGameManager->CreateTex(_T("Back"), _T("2DTextures/Title/TitleBack.png"));	//画像読み込み
+	m_pGameManager->CreateTex(_T("Back"), _T("2DTextures/Title/title_background.png"));	//画像読み込み
 }
 
 VOID TitleBack::Render()
@@ -211,19 +211,19 @@ VOID TitleMenu::SelectMenu()
 		switch (m_menuReel[M_SELECTING_MENU])
 		{
 		case NEW_GAME:
-			//*m_pNextScene = SceneID::MAIN_SCENE;
+			m_pTitleScene->ChangeNextScene(SceneID::MAIN_SCENE);
 			m_pTitleScene->SetCanSelectMenu(false);
 
 			break;
 
 		case LOAD_GAME:
-			//*m_pNextScene = SceneID::MAIN_SCENE;
+			m_pTitleScene->ChangeNextScene(SceneID::MAIN_SCENE);
 			m_pTitleScene->SetCanSelectMenu(false);
 
 			break;
 
 		case END_GAME:
-			//*m_pNextScene = SceneID::MAIN_SCENE;
+			m_pTitleScene->ChangeNextScene(SceneID::MAIN_SCENE);
 			m_pTitleScene->SetCanSelectMenu(false);
 
 			break;
@@ -326,23 +326,23 @@ VOID TitleStarEffect::InitStarEffects(starEffect* pStarEffect)
 	static const INT STAR_EFFECT_COLORS_MAX = 11;
 	static const DWORD STAR_EFFECT_COLORS[STAR_EFFECT_COLORS_MAX] =					//星エフェクトの色
 	{
-		D3DCOLOR_ARGB(190,63,255,20),
-		D3DCOLOR_ARGB(190,20,255,95),
-		D3DCOLOR_ARGB(190,20,255,212),
-		D3DCOLOR_ARGB(190,20,181,255),
-		D3DCOLOR_ARGB(190,20,63,255),
-		D3DCOLOR_ARGB(190,95,20,255),
-		D3DCOLOR_ARGB(190,212,20,255),
-		D3DCOLOR_ARGB(190,255,20,181),
-		D3DCOLOR_ARGB(190,255,20,63),
-		D3DCOLOR_ARGB(190,255,95,20),
-		D3DCOLOR_ARGB(190,255,212,20),
+		D3DCOLOR_ARGB(255,63,255,20),
+		D3DCOLOR_ARGB(255,20,255,95),
+		D3DCOLOR_ARGB(255,20,255,212),
+		D3DCOLOR_ARGB(255,20,181,255),
+		D3DCOLOR_ARGB(255,20,63,255),
+		D3DCOLOR_ARGB(255,95,20,255),
+		D3DCOLOR_ARGB(255,212,20,255),
+		D3DCOLOR_ARGB(255,255,20,181),
+		D3DCOLOR_ARGB(255,255,20,63),
+		D3DCOLOR_ARGB(255,255,95,20),
+		D3DCOLOR_ARGB(255,255,212,20),
 	};
 
 	pStarEffect->m_data.m_center = { (FLOAT)(rand() % ((INT)(m_windowSize.x))) + m_windowSize.x*2.5f,	//生成場所をランダムで行う
 		-(FLOAT)(rand() % (INT)(m_windowSize.x * 4)),0.99f };
 	pStarEffect->m_data.m_halfScale = m_halfstarEffectScale;
-	pStarEffect->m_data.m_degree.z = (FLOAT)(rand() % 30 + 30);											//星の入射角決定
+	pStarEffect->m_data.m_degree.z = 45.0f;											//星の入射角決定
 	pStarEffect->m_data.m_color = STAR_EFFECT_COLORS[rand() % STAR_EFFECT_COLORS_MAX];
 
 	D3DXMatrixRotationZ(&matRotate, D3DXToRadian(pStarEffect->m_data.m_degree.z));
@@ -351,6 +351,7 @@ VOID TitleStarEffect::InitStarEffects(starEffect* pStarEffect)
 
 VOID TitleStarEffect::Render()
 {
+	m_pGameManager->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 	m_pGameManager->GetDisplaySize(&m_windowSize);
 
 	static const INT STAR_EFFECT_MAX = 15;																//星エフェクトの最大数
@@ -382,7 +383,7 @@ VOID TitleStarEffect::Render()
 			m_pGameManager->Render(starEffects[i].m_vertices,
 				m_pGameManager->GetTex(_T("StarEffect")));
 
-			m_pGameManager->SetColor(starEffects[i].m_vertices, D3DCOLOR_ARGB(130, 255, 255, 255));
+			m_pGameManager->SetColor(starEffects[i].m_vertices, D3DCOLOR_ARGB(230, 255, 255, 255));
 			m_pGameManager->Render(starEffects[i].m_vertices,
 				m_pGameManager->GetTex(_T("OverStarEffect")));
 		}
@@ -392,4 +393,6 @@ VOID TitleStarEffect::Render()
 			starEffects[i].m_canInit = true;
 		}
 	}
+
+	m_pGameManager->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 }

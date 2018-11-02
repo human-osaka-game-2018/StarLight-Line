@@ -11,7 +11,7 @@ enum class SceneID
 
 	HOME_SCENE,
 
-	//MAIN_SCENE,
+	MAIN_SCENE,
 };
 
 class Scene;

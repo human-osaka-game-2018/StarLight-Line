@@ -18,9 +18,6 @@
     <Filter Include="Class\GameManager">
       <UniqueIdentifier>{7cc5c046-39f1-44c3-ae76-58a09f2f6e5d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\GameManager\DirectX">
-      <UniqueIdentifier>{4c7f7ad2-61ff-45fe-85e7-6a89c93d171a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\GameManager\Window">
       <UniqueIdentifier>{201b8cac-50d2-4368-9c2e-ac0fba2bf061}</UniqueIdentifier>
     </Filter>
@@ -80,6 +77,9 @@
     </Filter>
     <Filter Include="Class\GameManager\FPS">
       <UniqueIdentifier>{b892e18d-ce1b-478a-b9a9-b48051378d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\GameManager\DirectX">
+      <UniqueIdentifier>{4c7f7ad2-61ff-45fe-85e7-6a89c93d171a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
