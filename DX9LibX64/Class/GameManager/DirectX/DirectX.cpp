@@ -540,3 +540,12 @@ DirectXInstances& DirectX::GetDirectXInstances()
 {
 	return m_directXInstances;
 }
+
+VOID DirectX::SetRenderState(D3DRENDERSTATETYPE renderStateType, DWORD value)
+{
+	DirectX* pDirectX = DirectX::GetInstance();
+	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
+	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+
+	rpDirectX3DDevice->SetRenderState(renderStateType, value);
+}

@@ -362,6 +362,7 @@ public:
 	static DirectX* GetInstance();
 	VOID Release();
 	VOID SetHWND(HWND* pHWnd);
+	VOID SetRenderState(D3DRENDERSTATETYPE renderStateType, DWORD value);
 	DirectXInstances& GetDirectXInstances();
 
 	DirectXObject m_DirectXObject;

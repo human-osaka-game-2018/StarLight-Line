@@ -46,3 +46,8 @@ VOID TitleScene::SetCanSelectMenu(BOOL canSelectMenu)
 {
 	m_canSelectMenu = canSelectMenu;
 }
+
+VOID TitleScene::ChangeNextScene(SceneID sceneID)
+{
+	*m_pNextScene = sceneID;
+}

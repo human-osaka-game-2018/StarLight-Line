@@ -66,6 +66,7 @@ VOID GameManager::Create()
 	m_pCustomVertices = CustomVertices::GetInstance();
 	m_pDraw = Draw::GetInstance(GetDirectX3DDevice());
 	m_pFileManager = FileManager::GetInstace(GetDirectX3DDevice());
+	Light::SetLPDIRECT3DDEVICE9(GetDirectX3DDevice());
 
 	LoopMainFunc();
 }
@@ -292,4 +293,14 @@ VOID GameManager::Create(CustomVertex* pCustomVertices, const ObjectData* pObjec
 VOID GameManager::SetColor(CustomVertex* pCustomVertices, DWORD color)
 {
 	m_pCustomVertices->SetColor(pCustomVertices, color);
+}
+
+VOID GameManager::SetLight(D3DLIGHT9* pLight, INT lightIndex)
+{
+	m_light.SetLight(pLight, lightIndex);
+}
+
+VOID GameManager::SetRenderState(D3DRENDERSTATETYPE renderStateType, DWORD value)
+{
+	m_pDirectX->SetRenderState(renderStateType, value);
 }

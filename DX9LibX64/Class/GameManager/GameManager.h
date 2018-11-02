@@ -6,7 +6,9 @@
 #include "../CustomVertices/CustomVertices.h"
 #include "../Draw/Draw.h"
 #include "../FileManager/FileManager.h"
+#include "Light\Light.h"
 
+class Light;
 class CustomVertices;
 class Draw;
 
@@ -189,6 +191,10 @@ public:
 	*/
 	VOID SetColor(CustomVertex *pCustomVertices, DWORD color);
 
+	VOID SetLight(D3DLIGHT9* pLight, INT lightIndex);
+
+	VOID SetRenderState(D3DRENDERSTATETYPE renderStateType, DWORD value);
+
 private:
 	GameManager(HINSTANCE hInst, TCHAR* pAppName, BOOL canWindow);
 	~GameManager();
@@ -207,4 +213,5 @@ private:
 	static CustomVertices* m_pCustomVertices;
 	static Draw* m_pDraw;
 	static FileManager* m_pFileManager;
+	Light m_light;
 };
