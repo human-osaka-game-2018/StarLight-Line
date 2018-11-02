@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
 #include "../Scene.h"
+#include "MainObject\DamageStar.h"
 
 #include <crtdbg.h>
 #include <cstdio>
@@ -16,4 +17,7 @@ public:
 
 	VOID Update();
 	VOID Render();
+
+private:
+	DamageStar m_DamageStar;
 };

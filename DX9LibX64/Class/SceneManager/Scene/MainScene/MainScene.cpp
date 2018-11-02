@@ -4,6 +4,7 @@
 
 VOID MainScene::Update()
 {
+	m_DamageStar.Update();
 }
 
 VOID MainScene::Render()
@@ -17,6 +18,8 @@ VOID MainScene::Render()
 
 	m_pCustomVertices->Create(BackGround, &BackGroundCenterPos, &BackGroundHalfScale);
 	m_pDraw->Render(BackGround, m_pFileManager->GetTex(_T("BackGround")));
+
+	m_DamageStar.Render();
 }
 
 MainScene::MainScene()
@@ -25,4 +28,5 @@ MainScene::MainScene()
 
 	m_pFileManager->CreateTex(_T("BackGround"), _T("2DTextures/reticle_line.png"));
 
+	m_DamageStar.Init();
 }

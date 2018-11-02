@@ -16,6 +16,7 @@ public:
 	BaseStar() {};
 	~BaseStar() {};
 
+	virtual VOID Init() = 0;
 	virtual VOID Update() = 0;
 	virtual VOID Render() = 0;
 
