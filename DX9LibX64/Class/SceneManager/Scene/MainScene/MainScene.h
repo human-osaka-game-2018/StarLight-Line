@@ -7,11 +7,10 @@ class MainScene :public Scene
 {
 public:
 	MainScene();
-	~MainScene();
+	~MainScene() {};
 
+	VOID Init();
 	VOID Update();
 	VOID Render();
 
-private:
-	DamageStar m_DamageStar;
 };

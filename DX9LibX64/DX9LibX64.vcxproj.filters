@@ -169,6 +169,9 @@
     <ClCompile Include="Class\ObjectManager\Object\Object.cpp">
       <Filter>Class\ObjectManager\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\MainObject.cpp">
+      <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class\FBX\FbxModel.h">
@@ -251,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="Class\SceneManager\SceneManager.h">
       <Filter>Class\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\MainObject.h">
+      <Filter>Class\SceneManager\Scene\MainScene\MainObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -144,6 +144,7 @@
     <ClCompile Include="Class\SceneManager\Scene\HomeScene\HomeScene.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStar.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\DamageStar.cpp" />
+    <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\MainObject.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainObject\ScoreStar.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\MainScene\MainScene.cpp" />
     <ClCompile Include="Class\SceneManager\Scene\Scene.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Class\SceneManager\Scene\HomeScene\HomeScene.h" />
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\BaseStat.h" />
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\DamageStar.h" />
+    <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\MainObject.h" />
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainObject\ScoreStar.h" />
     <ClInclude Include="Class\SceneManager\Scene\MainScene\MainScene.h" />
     <ClInclude Include="Class\SceneManager\Scene\Scene.h" />
