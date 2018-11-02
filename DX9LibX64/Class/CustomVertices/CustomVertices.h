@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <d3dx9.h>
 #include "../BaseWorking/BaseWorking.h"
-#include "../Object2DManager/Object2D/Object2D.h"
+#include "../ObjectManager/Object/Object.h"
 
 /**
 * @struct CustomVertex
@@ -34,7 +34,7 @@ public:
 	D3DXVECTOR2 m_TexUV;	//! テクスチャの座標
 };
 
-struct Object2DData;
+struct ObjectData;
 
 /**
 * @class CustomVertices
@@ -51,17 +51,17 @@ public:
 	* @return インスタンスのポインタ
 	* @detail このクラスのメンバm_pCustomVerticesがNULLならnewを行い、
 	*	m_pCustomVerticesに代入し戻り値で変えす、
-	*	このクラスを破棄する場合はVOID DeleteInstance()を使用する
+	*	このクラスを破棄する場合はVOID Release()を使用する
 	*/
 	static CustomVertices* GetInstance();
 
 	/**
-	* @fnstatic  VOID DeleteInstance()
+	* @fnstatic  VOID Release()
 	* @brief このクラスを破棄する
 	* @return なし
 	* @detail このクラスのメンバm_pCustomVerticesをDeleteしてこのクラスを破棄し、NULLを代入する
 	*/
-	VOID DeleteInstance();
+	VOID Release();
 
 	/**
 	* @fn static VOID RotateXYZ(CustomVertex* pCustomVertices, const D3DXVECTOR3* pDegree, const D3DXVECTOR3* pRelativeRotateCenter)
@@ -156,7 +156,7 @@ public:
 	VOID Create(Custom3DVertex* pCustom3DVertices, const D3DXVECTOR3* pCenter, const D3DXVECTOR2* pHalfScale,
 		DWORD color = 0xFFFFFFFF, FLOAT startTU = 0.0f, FLOAT startTV = 0.0f, FLOAT endTU = 1.0f, FLOAT endTV = 1.0f);
 
-	VOID Create(CustomVertex *pCustomVertices, const Object2DData*pObject2DData);
+	VOID Create(CustomVertex *pCustomVertices, const ObjectData*pObjectData);
 
 	VOID SetColor(CustomVertex *pCustomVertices, DWORD color);
 

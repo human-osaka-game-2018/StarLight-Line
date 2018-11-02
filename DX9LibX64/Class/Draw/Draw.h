@@ -29,17 +29,17 @@ public:
 	* @return インスタンスのポインタ
 	* @detail このクラスのメンバm_pDrawがNULLならnewを行い、
 	*	m_pDrawに代入し戻り値で変えす、
-	*	このクラスを破棄する場合はVOID DeleteInstance()を使用する
+	*	このクラスを破棄する場合はVOID Release()を使用する
 	*/
-	static Draw* GetInstance();
+	static Draw* GetInstance(LPDIRECT3DDEVICE9 pDirectX3DDevice);
 
 	/**
-	* @fnstatic  VOID DeleteInstance()
+	* @fnstatic  VOID Release()
 	* @brief このクラスを破棄する
 	* @return なし
 	* @detail このクラスのメンバm_pDrawをDeleteしてこのクラスを破棄し、NULLを代入する
 	*/
-	VOID DeleteInstance();
+	VOID Release();
 
 	/**
 	* @fn static VOID SetLPDIRECT3DDEVICE9(LPDIRECT3DDEVICE9 pDirectX3DDevice)
@@ -96,5 +96,5 @@ private:
 	Draw() {};
 	~Draw() {};
 
-	static Draw* m_pDraw;		//! singleton用のこのクラスのポインタ
+	static Draw* m_pDraw;								//! singleton用のこのクラスのポインタ
 };

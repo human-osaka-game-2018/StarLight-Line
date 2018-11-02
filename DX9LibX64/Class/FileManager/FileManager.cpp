@@ -3,8 +3,10 @@
 FileManager* FileManager::m_pFileManager = NULL;
 LPDIRECT3DDEVICE9 FileManager::m_pDirectX3DDevice = NULL;
 
-FileManager* FileManager::GetInstace()
+FileManager* FileManager::GetInstace(LPDIRECT3DDEVICE9 pDirectX3DDevice)
 {
+	SetLPDIRECT3DDEVICE9(pDirectX3DDevice);
+
 	if (!m_pFileManager)m_pFileManager = new FileManager;
 
 	return m_pFileManager;

@@ -16,7 +16,7 @@ CustomVertices* CustomVertices::GetInstance()
 	return m_pCustomVertices;
 }
 
-VOID CustomVertices::DeleteInstance()
+VOID CustomVertices::Release()
 {
 	delete m_pCustomVertices;
 	m_pCustomVertices = NULL;
@@ -272,17 +272,17 @@ VOID CustomVertices::Create(Custom3DVertex* pCustom3DVertices, const D3DXVECTOR3
 	SetTexUV(pCustom3DVertices, startTU, startTV, endTU, endTV);
 }
 
-struct Object2DData;
+struct ObjectData;
 
-VOID CustomVertices::Create(CustomVertex *pCustomVertices, const Object2DData*pObject2DData)
+VOID CustomVertices::Create(CustomVertex *pCustomVertices, const ObjectData*pObjectData)
 {
 	for (int i = 0; i < M_RECT_VERTICES_NUM; ++i)
 	{
-		pCustomVertices->m_pos = pObject2DData->m_center;
-		pCustomVertices[i].m_pos.x += (i % 3) ? pObject2DData->m_scale.x : -(pObject2DData->m_scale.x);
-		pCustomVertices[i].m_pos.x += (i / 2) ? pObject2DData->m_scale.y : -(pObject2DData->m_scale.y);
+		pCustomVertices[i].m_pos = pObjectData->m_center;
+		pCustomVertices[i].m_pos.x += (i % 3) ? pObjectData->m_halfScale.x : -(pObjectData->m_halfScale.x);
+		pCustomVertices[i].m_pos.y += (i / 2) ? pObjectData->m_halfScale.y : -(pObjectData->m_halfScale.y);
 
-		pCustomVertices[i].m_aRGB = pObject2DData->m_color;
+		pCustomVertices[i].m_aRGB = pObjectData->m_color;
 	}
 
 	SetTexUV(pCustomVertices, 0.0f, 0.0f, 1.0f, 1.0f);

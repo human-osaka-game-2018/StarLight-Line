@@ -418,9 +418,9 @@ VOID DirectXInputDevices::GetInputStates()
 	inputGetter.Get(m_InputData);
 }
 
-VOID DirectXInputDevices::GetInputData(InputData* pInputData)
+VOID DirectXInputDevices::GetInputData(InputData** pPInputData)
 {
-	memcpy(pInputData, &m_InputData, sizeof(InputData));
+	*pPInputData = &m_InputData;
 }
 
 Camera::Camera()
@@ -525,7 +525,7 @@ DirectX* DirectX::GetInstance()
 	return rDirectXInstances.m_pDirectXClass;
 }
 
-VOID DirectX::DeleteInstance()
+VOID DirectX::Release()
 {
 	delete m_directXInstances.m_pDirectXClass;
 	m_directXInstances.m_pDirectXClass = NULL;

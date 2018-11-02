@@ -7,7 +7,7 @@
 class FileManager
 {
 public:
-	static FileManager* GetInstace();
+	static FileManager* GetInstace(LPDIRECT3DDEVICE9 pDirectX3DDevice);
 	VOID Release();
 	static VOID SetLPDIRECT3DDEVICE9(LPDIRECT3DDEVICE9 pDirectX3DDevice);
 	VOID CreateTex(TCHAR* pTexName,TCHAR* pTexturePath);

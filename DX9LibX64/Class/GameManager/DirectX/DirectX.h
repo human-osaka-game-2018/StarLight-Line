@@ -327,7 +327,7 @@ public:
 	HRESULT Initialize();
 	VOID StoreInputStates();
 	VOID GetInputStates();
-	VOID GetInputData(InputData* pInputData);
+	VOID GetInputData(InputData** pPInputData);
 
 private:
 	DirectXInputDevices();
@@ -360,7 +360,7 @@ class DirectX
 {
 public:
 	static DirectX* GetInstance();
-	VOID DeleteInstance();
+	VOID Release();
 	VOID SetHWND(HWND* pHWnd);
 	DirectXInstances& GetDirectXInstances();
 

@@ -13,14 +13,16 @@
 Draw* Draw::m_pDraw = NULL;
 LPDIRECT3DDEVICE9 Draw::m_pDirectX3DDevice = NULL;
 
-Draw* Draw::GetInstance()
+Draw* Draw::GetInstance(LPDIRECT3DDEVICE9 pDirectX3DDevice)
 {
+	SetLPDIRECT3DDEVICE9(pDirectX3DDevice);
+
 	if (!m_pDraw)m_pDraw = new Draw;
 
 	return m_pDraw;
 }
 
-VOID Draw::DeleteInstance()
+VOID Draw::Release()
 {
 	delete m_pDraw;
 	m_pDraw = NULL;

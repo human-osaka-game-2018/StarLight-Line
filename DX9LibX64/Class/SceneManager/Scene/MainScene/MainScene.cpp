@@ -16,17 +16,15 @@ VOID MainScene::Render()
 	D3DXVECTOR3 BackGroundCenterPos(BackGroundHalfScale.x, BackGroundHalfScale.y, 1.0f);
 	CustomVertex BackGround[4];
 
-	m_pCustomVertices->Create(BackGround, &BackGroundCenterPos, &BackGroundHalfScale);
-	m_pDraw->Render(BackGround, m_pFileManager->GetTex(_T("BackGround")));
+	m_pGameManager->Create(BackGround, &BackGroundCenterPos, &BackGroundHalfScale);
+	m_pGameManager->Render(BackGround, m_pGameManager->GetTex(_T("BackGround")));
 
 	m_DamageStar.Render();
 }
 
 MainScene::MainScene()
 {
-	m_pFileManager = FileManager::GetInstace();
-
-	m_pFileManager->CreateTex(_T("BackGround"), _T("2DTextures/reticle_line.png"));
+	m_pGameManager->CreateTex(_T("BackGround"), _T("2DTextures/reticle_line.png"));
 
 	m_DamageStar.Init();
 }

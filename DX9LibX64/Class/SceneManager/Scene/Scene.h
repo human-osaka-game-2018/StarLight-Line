@@ -3,30 +3,24 @@
 #include "../../GameManager/GameManager.h"
 #include "../../BaseWorking/BaseWorking.h"
 #include "../../FBX/ClassFBX.h"
-#include "../../CustomVertices/CustomVertices.h"
-#include "../../Draw/Draw.h"
-#include "../../BaseWorking/BaseWorkingManager/BaseWorkingManager.h"
-#include "../../FileManager/FileManager.h"
+#include "../../ObjectManager/ObjectManager.h"
 
 enum class SceneID;
+
+class GameManager;
 
 class Scene :public BaseWorking
 {
 public:
-	Scene() {};
+	Scene();
 	~Scene() {};
 
 	VOID syncNextScene(SceneID* pNextScene);
 
-	VOID syncLibInstance(GameManager* pGameManager, CustomVertices* pCustomVertices, Draw* pDraw, InputData inputData, FileManager* pFileManager);
-
 protected:
 	static SceneID* m_pNextScene;
 	GameManager* m_pGameManager;
-	CustomVertices* m_pCustomVertices;
-	Draw* m_pDraw;
-	FileManager* m_pFileManager;
-	InputData m_inputData;
-	BaseWorkingManager m_sceneObjectManager;
+	InputData* m_pInputData;
+	ObjectManager m_sceneObjectManager;
 	LONGLONG m_frame = -1;
 };

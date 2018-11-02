@@ -61,7 +61,7 @@ VOID FPS::UpdateTime()
 	timeEndPeriod(1);
 }
 
-VOID FPS::DeleteInstance()
+VOID FPS::Release()
 {
 	delete m_pFPSClass;
 	m_pFPSClass = NULL;
