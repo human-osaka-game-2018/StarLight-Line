@@ -35,9 +35,9 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 	// ÉÅÉÇÉäÉäÅ[ÉNåüèo
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	D3DXVECTOR2 displaySize(1280.0f, 720.0f);
+	D3DXVECTOR2 displaySize(1920.0f, 1080.0f);
 
-	GameManager* pGameManager = GameManager::GetInstance(hInst, _T("TEST_TEST_TEST"), MainFunc, displaySize, TRUE);
+	GameManager* pGameManager = GameManager::GetInstance(hInst, _T("TEST_TEST_TEST"), MainFunc, displaySize, FALSE);
 
 	SceneManager* pSceneManager = SceneManager::GetInstance();
 

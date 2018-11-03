@@ -110,3 +110,28 @@ private:
 	D3DXVECTOR3 m_unitStarEffectMovement;	//‘¬“x
 
 };
+
+class TitleSmallStarEffect :public TitleObject
+{
+public:
+	TitleSmallStarEffect(Scene* pScene);
+	~TitleSmallStarEffect() {};
+
+	VOID Init();
+	VOID Update() {};
+	VOID Render();
+private:
+	struct SmallStarEffect
+	{
+	public:
+		BOOL m_canCountUp = true;
+		INT m_flashCount = TitleSmallStarEffect::M_INIT_COUNT;
+		ObjectData m_data;
+		D3DXVECTOR4 m_color;
+		CustomVertex m_vertices[4];
+	};
+
+	static const INT M_INIT_COUNT = -1;
+	const INT M_FLASH_COUNT_MAX = 210;
+	const INT M_FLASH_COUNT_MIN = 20;
+};

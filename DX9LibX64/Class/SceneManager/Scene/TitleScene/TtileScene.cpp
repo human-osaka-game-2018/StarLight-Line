@@ -21,6 +21,7 @@ TitleScene::TitleScene()
 	m_sceneObjectManager.Resist(new TitleInputPrompt(pThisScene));
 	m_sceneObjectManager.Resist(new TitleMenu(pThisScene));
 	m_sceneObjectManager.Resist(new TitleStarEffect(pThisScene));
+	m_sceneObjectManager.Resist(new TitleSmallStarEffect(pThisScene));
 }
 
 TitleScene::~TitleScene()

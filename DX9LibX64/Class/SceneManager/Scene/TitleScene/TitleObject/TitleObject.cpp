@@ -354,12 +354,9 @@ VOID TitleStarEffect::Render()
 	m_pGameManager->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 	m_pGameManager->GetDisplaySize(&m_windowSize);
 
-	static const INT STAR_EFFECT_MAX = 15;																//星エフェクトの最大数
-
+	static const INT STAR_EFFECT_MAX = 5;																//星エフェクトの最大数
 	static starEffect starEffects[STAR_EFFECT_MAX];
-
 	m_halfstarEffectScale = { m_windowSize.x*0.0025f, m_windowSize.y*0.6f, 0.0f };
-
 	m_unitStarEffectMovement = { 0.0f, 30.0f, 0.0f };
 
 	for (INT i = 0; i < STAR_EFFECT_MAX; ++i)
@@ -392,6 +389,95 @@ VOID TitleStarEffect::Render()
 		{
 			starEffects[i].m_canInit = true;
 		}
+	}
+
+	m_pGameManager->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+}
+
+TitleSmallStarEffect::TitleSmallStarEffect(Scene* pScene) :TitleObject(pScene)
+{
+	Init();
+}
+
+VOID TitleSmallStarEffect::Init()
+{
+	m_type = Type::TRANSPARENCY;
+	m_z = 0.991f;
+
+	static BOOL canInit = true;
+	if (!canInit)return;
+	canInit = false;
+
+	m_pGameManager->CreateTex(_T("SmallStarEffect"), _T("2DTextures/Title/SmallStarEffect.png"));
+	m_pGameManager->CreateTex(_T("OverSmallStarEffect"), _T("2DTextures/Title/OverSmallStarEffect.png"));
+}
+
+VOID TitleSmallStarEffect::Render()
+{
+	m_pGameManager->GetDisplaySize(&m_windowSize);
+
+	const INT SMALL_STAR_EFFECTS_MAX = 40;
+	static SmallStarEffect smallStarEffect[SMALL_STAR_EFFECTS_MAX];
+	static const INT STAR_EFFECT_COLORS_MAX = 11;
+	static const D3DXVECTOR4 STAR_EFFECT_COLORS[STAR_EFFECT_COLORS_MAX] =					//星エフェクトの色
+	{
+		{255,63,255,20},
+		{255,20,255,95},
+		{255,20,255,212},
+		{255,20,181,255},
+		{255,20,63,255},
+		{255,95,20,255},
+		{255,212,20,255},
+		{255,255,20,181},
+		{255,255,20,63},
+		{255,255,95,20},
+		{255,255,212,20},
+	};
+
+	for (int i = 0; i < SMALL_STAR_EFFECTS_MAX; ++i)
+	{
+		if (smallStarEffect[i].m_flashCount == M_INIT_COUNT)
+		{
+			smallStarEffect[i].m_flashCount = rand() % (M_FLASH_COUNT_MAX - M_FLASH_COUNT_MIN) + M_FLASH_COUNT_MIN;
+			smallStarEffect[i].m_canCountUp = rand() % 1;
+			smallStarEffect[i].m_data.m_center = { (FLOAT)(rand() % ((INT)(m_windowSize.x))),
+				(FLOAT)(rand() % ((INT)(m_windowSize.y))),0.991f };
+			FLOAT smallStarEffectHalfScale = m_windowSize.x*0.002f + (rand() % (INT)(m_windowSize.x*0.002));
+			smallStarEffect[i].m_data.m_halfScale = { smallStarEffectHalfScale,smallStarEffectHalfScale,0.0f };
+
+			INT selectedColor = rand() % STAR_EFFECT_COLORS_MAX;
+
+			smallStarEffect[i].m_color.x = STAR_EFFECT_COLORS[selectedColor].x;
+			smallStarEffect[i].m_color.y = STAR_EFFECT_COLORS[selectedColor].y;
+			smallStarEffect[i].m_color.z = STAR_EFFECT_COLORS[selectedColor].z;
+		}
+
+		CustomVertex OverEffect[4];
+		memcpy(OverEffect, smallStarEffect[i].m_vertices, sizeof(CustomVertex) * 4);
+
+		const FLOAT OVER_EFFECT_MULTIPLY = 3.0f;
+		D3DXVECTOR2 OVER_EFFECT_MULTIPLYS(OVER_EFFECT_MULTIPLY, OVER_EFFECT_MULTIPLY);
+		m_pGameManager->Rescale(OverEffect, &OVER_EFFECT_MULTIPLYS);
+
+		DWORD OverEffectColor = D3DCOLOR_ARGB(180, 255, 255, 255);
+		m_pGameManager->SetColor(OverEffect, OverEffectColor);
+
+		m_pGameManager->Render(OverEffect, m_pGameManager->GetTex(_T("OverSmallStarEffect")));
+
+		smallStarEffect[i].m_data.m_color = D3DCOLOR_ARGB((INT)(smallStarEffect[i].m_flashCount),
+			(INT)smallStarEffect[i].m_color.x, (INT)smallStarEffect[i].m_color.y, (INT)smallStarEffect[i].m_color.z);
+
+		m_pGameManager->Create(smallStarEffect[i].m_vertices, &smallStarEffect[i].m_data);
+
+		m_pGameManager->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+
+		m_pGameManager->Render(smallStarEffect[i].m_vertices, m_pGameManager->GetTex(_T("SmallStarEffect")));
+
+		if (smallStarEffect[i].m_flashCount >= M_FLASH_COUNT_MAX)smallStarEffect[i].m_canCountUp = false;	//アルファ値の折り返し設定
+		if (smallStarEffect[i].m_flashCount <= M_FLASH_COUNT_MIN)smallStarEffect[i].m_canCountUp = true;
+
+		smallStarEffect[i].m_flashCount = (smallStarEffect[i].m_canCountUp) ?
+			smallStarEffect[i].m_flashCount += 5 : smallStarEffect[i].m_flashCount -= 5;		//canCountUpがtrueなら+ falseなら-
 	}
 
 	m_pGameManager->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
