@@ -17,12 +17,12 @@ TitleBack::TitleBack(Scene* pScene) : TitleObject(pScene)
 
 VOID TitleBack::Init()
 {
-	static BOOL canInit = true;														//ˆê“x‚µ‚©‰Šú‰»‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+	static BOOL canInit = true;															//ˆê“x‚µ‚©‰Šú‰»‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚é
 	if (!canInit)return;
 	canInit = false;
 
-	m_type = Type::BACK;															//•`‰æƒ^ƒCƒv ”wŒi
-	m_z = 1.0f;																		//•`‰æ‚·‚é‚Æ‚«‚ÌZ’l ‚±‚ê‚É‚æ‚è•`‰æ‡‚ðŒˆ‚ß‚Ä‚¢‚é
+	m_type = Type::BACK;																//•`‰æƒ^ƒCƒv ”wŒi
+	m_z = 1.0f;																			//•`‰æ‚·‚é‚Æ‚«‚ÌZ’l ‚±‚ê‚É‚æ‚è•`‰æ‡‚ðŒˆ‚ß‚Ä‚¢‚é
 
 	m_pGameManager->CreateTex(_T("Back"), _T("2DTextures/Title/title_background.png"));	//‰æ‘œ“Ç‚Ýž‚Ý
 }
@@ -416,7 +416,7 @@ VOID TitleSmallStarEffect::Render()
 {
 	m_pGameManager->GetDisplaySize(&m_windowSize);
 
-	const INT SMALL_STAR_EFFECTS_MAX = 40;
+	const INT SMALL_STAR_EFFECTS_MAX = 150;
 	static SmallStarEffect smallStarEffect[SMALL_STAR_EFFECTS_MAX];
 	static const INT STAR_EFFECT_COLORS_MAX = 11;
 	static const D3DXVECTOR4 STAR_EFFECT_COLORS[STAR_EFFECT_COLORS_MAX] =					//¯ƒGƒtƒFƒNƒg‚ÌF
@@ -442,7 +442,7 @@ VOID TitleSmallStarEffect::Render()
 			smallStarEffect[i].m_canCountUp = rand() % 1;
 			smallStarEffect[i].m_data.m_center = { (FLOAT)(rand() % ((INT)(m_windowSize.x))),
 				(FLOAT)(rand() % ((INT)(m_windowSize.y))),0.991f };
-			FLOAT smallStarEffectHalfScale = m_windowSize.x*0.002f + (rand() % (INT)(m_windowSize.x*0.002));
+			FLOAT smallStarEffectHalfScale = 0.5f+rand()%2;
 			smallStarEffect[i].m_data.m_halfScale = { smallStarEffectHalfScale,smallStarEffectHalfScale,0.0f };
 
 			INT selectedColor = rand() % STAR_EFFECT_COLORS_MAX;
@@ -459,7 +459,7 @@ VOID TitleSmallStarEffect::Render()
 		D3DXVECTOR2 OVER_EFFECT_MULTIPLYS(OVER_EFFECT_MULTIPLY, OVER_EFFECT_MULTIPLY);
 		m_pGameManager->Rescale(OverEffect, &OVER_EFFECT_MULTIPLYS);
 
-		DWORD OverEffectColor = D3DCOLOR_ARGB(180, 255, 255, 255);
+		DWORD OverEffectColor = D3DCOLOR_ARGB(250, 255, 255, 255);
 		m_pGameManager->SetColor(OverEffect, OverEffectColor);
 
 		m_pGameManager->Render(OverEffect, m_pGameManager->GetTex(_T("OverSmallStarEffect")));

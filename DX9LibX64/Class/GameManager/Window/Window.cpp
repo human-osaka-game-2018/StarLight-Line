@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <tchar.h>
 #include "Window.h"
+#include "../GameManager.h"
 #include <cstdio>
 #include <cstdlib>
 #include <crtdbg.h>
@@ -9,6 +10,8 @@
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 Window* Window::m_pWindow = NULL;
+GameManager* Window::m_pGameManager = NULL;
+D3DPRESENT_PARAMETERS* Window::m_pDirectXPresentParam;
 
 Window* Window::GetInstance(const HINSTANCE hInst, TCHAR* pAppName)
 {
@@ -17,7 +20,8 @@ Window* Window::GetInstance(const HINSTANCE hInst, TCHAR* pAppName)
 	return m_pWindow;
 }
 
-Window::Window(const HINSTANCE hInst, TCHAR* pAppName) :m_displaySize(1920.0f,1080.0f), m_canWindow(TRUE), m_hWnd(NULL)
+Window::Window(const HINSTANCE hInst, TCHAR* pAppName) :m_displaySize(1920.0f,1080.0f), 
+m_canWindow(TRUE), m_hWnd(NULL)
 {
 	m_pAppName = pAppName;
 	m_hInst = hInst;
@@ -41,6 +45,8 @@ VOID Window::SetWindowMode(BOOL canWindow)
 
 LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
+	m_pDirectXPresentParam;
+
 	switch (iMsg)
 	{
 	case WM_DESTROY:
@@ -49,14 +55,62 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lPa
 
 		break;
 
-	case WM_KEYDOWN:
+	case WM_SIZE:
+	{
+		m_pGameManager = GameManager::CopyInstance();
 
-		switch ((CHAR)wParam)
+		m_pDirectXPresentParam = m_pGameManager->GetD3DPRESENT_PARAMETERS();
+
+		if (!m_pDirectXPresentParam->Windowed)break;
+
+		if (m_pGameManager->GetDirectX3DDevice() || wParam == SIZE_MINIMIZED)break;
+
+		m_pGameManager->SetBackBufferSize(LOWORD(lParam), HIWORD(lParam));
+
+		if (!m_pGameManager->GetEnable3DDevice())break;
+
+		if (wParam == SIZE_MAXIMIZED || wParam == SIZE_RESTORED)m_pGameManager->ChangeWindowSize();
+	}
+
+		break;
+
+	case WM_SETCURSOR:
+	{
+		m_pGameManager = GameManager::CopyInstance();
+
+		*m_pDirectXPresentParam = *m_pGameManager->GetD3DPRESENT_PARAMETERS();
+
+		if (m_pDirectXPresentParam->Windowed != TRUE)
 		{
-		case VK_ESCAPE:
+			SetCursor(NULL);
+			return 1;
+		}
+	}
 
-			PostQuitMessage(0);
+		break;
 
+	case WM_KEYDOWN:
+		// キー入力の処理
+		switch (wParam)
+		{
+		case VK_ESCAPE: // [ESCAPE]キーでウインドウを閉じる
+
+			PostMessage(hWnd, WM_CLOSE, 0, 0);
+
+			break;
+		}
+		
+		break;
+
+	case WM_SYSKEYDOWN:     // Alt + 特殊キーの処理に使う
+		switch (wParam)
+		{
+		case VK_RETURN:     // Alt + Enterを押すと切り替え
+			m_pGameManager->ChangeDisplayMode();
+
+			break;
+
+		default:
 			break;
 		}
 

@@ -31,7 +31,16 @@ GameManager* GameManager::GetInstance(HINSTANCE hInst, TCHAR* pAppName, VOID(*pM
 {
 	if (!m_pGameManager)
 	{
-		m_displaySize = displaySize;
+		if (canWindow)
+		{
+			m_displaySize = displaySize;
+		}
+
+		if (!canWindow)
+		{
+			m_displaySize = { 1280.0f,720.0f };
+		}
+
 		m_pMainFunc = pMainFunc;
 		m_pGameManager = new GameManager(hInst, pAppName, canWindow);
 	}
@@ -56,6 +65,19 @@ GameManager::GameManager(HINSTANCE hInst, TCHAR* pAppName, BOOL canWindow)
 
 GameManager::~GameManager()
 {
+}
+
+D3DPRESENT_PARAMETERS* GameManager::GetD3DPRESENT_PARAMETERS()
+{
+	return m_pDirectX->GetDirectXInstances().m_pDirectXPresentParam;
+}
+
+VOID GameManager::SetBackBufferSize(INT width, INT height)
+{
+	D3DPRESENT_PARAMETERS* pDirectXPresentParam = m_pDirectX->GetDirectXInstances().m_pDirectXPresentParam;
+
+	pDirectXPresentParam->BackBufferWidth = width;
+	pDirectXPresentParam->BackBufferHeight = height;
 }
 
 VOID GameManager::Create()
@@ -129,7 +151,9 @@ VOID GameManager::LoopMainFunc()
 
 LPDIRECT3DDEVICE9 GameManager::GetDirectX3DDevice()
 {
-	return m_pDirectX->GetDirectXInstances().m_pDirectX3DDevice;
+	DirectXInstances& DirectXInstances = m_pDirectX->GetDirectXInstances();
+
+	return DirectXInstances.m_pDirectX3DDevice;
 }
 
 INT GameManager::Release()
@@ -303,4 +327,24 @@ VOID GameManager::SetLight(D3DLIGHT9* pLight, INT lightIndex)
 VOID GameManager::SetRenderState(D3DRENDERSTATETYPE renderStateType, DWORD value)
 {
 	m_pDirectX->SetRenderState(renderStateType, value);
+}
+
+VOID GameManager::SetEnable3DDevice(BOOL enable3DDevice)
+{
+	m_enable3DDevice = enable3DDevice;
+}
+
+BOOL GameManager::GetEnable3DDevice()
+{
+	return m_enable3DDevice;
+}
+
+VOID GameManager::ChangeDisplayMode()
+{
+	m_pDirectX->ChangeDisplayMode();
+}
+
+HRESULT GameManager::ChangeWindowSize()
+{
+	return m_pDirectX->ChangeWindowSize();
 }

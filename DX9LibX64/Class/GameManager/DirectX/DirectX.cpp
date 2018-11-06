@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include "DirectX.h"
+#include "../GameManager.h"
 
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -24,11 +25,9 @@ HRESULT DirectXObjectInitializer::Initialize(BOOL canWindow)
 		return E_FAIL;
 	}
 
-	ZeroMemory(&rDirectXInstances.m_DirectXPresentParam, sizeof(rDirectXInstances.m_DirectXPresentParam));
+	pDirectX->SetWindowMode(canWindow);
 
 	SetBuckBuffer(canWindow);
-
-	rDirectXInstances.m_DirectXPresentParam.Windowed = canWindow;
 
 	return S_OK;
 }
@@ -37,25 +36,37 @@ VOID DirectXObjectInitializer::SetBuckBuffer(BOOL canWindow)
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	D3DPRESENT_PARAMETERS& rDirectXPresentParam = rDirectXInstances.m_DirectXPresentParam;
+	D3DPRESENT_PARAMETERS* pDirectXPresentParam = rDirectXInstances.m_pDirectXPresentParam;
+	D3DPRESENT_PARAMETERS* pWindowPresentParam = rDirectXInstances.m_pWindowPresentParam;
+	D3DPRESENT_PARAMETERS* pFullscreenPresentParam = rDirectXInstances.m_pFullscreenPresentParam;
 
-	rDirectXPresentParam.BackBufferFormat = D3DFMT_X8R8G8B8;
-	rDirectXPresentParam.BackBufferCount = 1;
-	rDirectXPresentParam.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	rDirectXPresentParam.EnableAutoDepthStencil = TRUE;
-	rDirectXPresentParam.AutoDepthStencilFormat = D3DFMT_D16;
-	rDirectXPresentParam.Windowed = TRUE;
+	ZeroMemory(pDirectXPresentParam, sizeof(D3DPRESENT_PARAMETERS));
+	ZeroMemory(pWindowPresentParam, sizeof(D3DPRESENT_PARAMETERS));
+	ZeroMemory(pFullscreenPresentParam, sizeof(D3DPRESENT_PARAMETERS));
 
-	const INT WIDTH_FULLSCREEN = 1920;
-	const INT HEIGHT_FULLSCREEN = 1080;
+	pFullscreenPresentParam->BackBufferFormat = pWindowPresentParam->BackBufferFormat = D3DFMT_X8R8G8B8;
+	pFullscreenPresentParam->BackBufferCount = pWindowPresentParam->BackBufferCount = 1;
+	pFullscreenPresentParam->SwapEffect = pWindowPresentParam->SwapEffect = D3DSWAPEFFECT_DISCARD;
+	pFullscreenPresentParam->EnableAutoDepthStencil = pWindowPresentParam->EnableAutoDepthStencil = TRUE;
+	pFullscreenPresentParam->AutoDepthStencilFormat = pWindowPresentParam->AutoDepthStencilFormat = D3DFMT_D16;
+	pFullscreenPresentParam->Windowed = pWindowPresentParam->Windowed = TRUE;
+
+	const INT WIDTH_FULLSCREEN = 1280;
+	const INT HEIGHT_FULLSCREEN = 720;
+	pFullscreenPresentParam->BackBufferWidth = WIDTH_FULLSCREEN;
+	pFullscreenPresentParam->BackBufferHeight = HEIGHT_FULLSCREEN;
+	pFullscreenPresentParam->hDeviceWindow = *rDirectXInstances.m_pHWnd;
+	pFullscreenPresentParam->PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+	pFullscreenPresentParam->Windowed = FALSE;
+
+	if (canWindow)
+	{
+		*pDirectXPresentParam = *pWindowPresentParam;
+	}
 
 	if (!canWindow)
 	{
-		rDirectXPresentParam.BackBufferWidth = WIDTH_FULLSCREEN;
-		rDirectXPresentParam.BackBufferHeight = HEIGHT_FULLSCREEN;
-		rDirectXPresentParam.hDeviceWindow = *rDirectXInstances.m_pHWnd;
-		rDirectXPresentParam.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
-		rDirectXPresentParam.Windowed = FALSE;
+		*pDirectXPresentParam = *pFullscreenPresentParam;
 	}
 }
 
@@ -79,23 +90,23 @@ VOID DirectX3DDeviceInitializer::SetRenderState(BOOL canCullPolygon)
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
-	rpDirectX3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	rpDirectX3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	rpDirectX3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	rpDirectX3DDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
-	rpDirectX3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
-	rpDirectX3DDevice->SetRenderState(D3DRS_AMBIENT, 0x00222266);
-	rpDirectX3DDevice->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
-	rpDirectX3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	rpDirectX3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
-	rpDirectX3DDevice->SetRenderState(D3DRS_ALPHAREF, 0x00);
-	rpDirectX3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	rPDirectX3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	rPDirectX3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	rPDirectX3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	rPDirectX3DDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+	rPDirectX3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	rPDirectX3DDevice->SetRenderState(D3DRS_AMBIENT, 0x00222266);
+	rPDirectX3DDevice->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
+	rPDirectX3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	rPDirectX3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+	rPDirectX3DDevice->SetRenderState(D3DRS_ALPHAREF, 0x00);
+	rPDirectX3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	if (!canCullPolygon)
 	{
-		rpDirectX3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+		rPDirectX3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	}
 }
 
@@ -103,12 +114,12 @@ VOID DirectX3DDeviceInitializer::SetTextureStageState()
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
-	rpDirectX3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	rpDirectX3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-	rpDirectX3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-	rpDirectX3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	rPDirectX3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	rPDirectX3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	rPDirectX3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	rPDirectX3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 }
 
 VOID DirectX3DDeviceInitializer::SetViewPort()
@@ -117,34 +128,34 @@ VOID DirectX3DDeviceInitializer::SetViewPort()
 
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	D3DPRESENT_PARAMETERS& rDirectXPresentParam = rDirectXInstances.m_DirectXPresentParam;
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	D3DPRESENT_PARAMETERS* pDirectXPresentParam = rDirectXInstances.m_pDirectXPresentParam;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
-	viewPort.Width = rDirectXPresentParam.BackBufferWidth;
-	viewPort.Height = rDirectXPresentParam.BackBufferHeight;
-	viewPort.MinZ = 0.f;
+	viewPort.Width = pDirectXPresentParam->BackBufferWidth;
+	viewPort.Height = pDirectXPresentParam->BackBufferHeight;
+	viewPort.MinZ = 0.0f;
 	viewPort.MaxZ = 1.0f;
 	viewPort.X = 0;
 	viewPort.Y = 0;
 
-	rpDirectX3DDevice->SetViewport(&viewPort);
+	rPDirectX3DDevice->SetViewport(&viewPort);
 }
 
 HRESULT DirectX3DDeviceInitializer::Initialize(t_VERTEX_FORMAT d3DFVF, BOOL canCullPolygon)
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	D3DPRESENT_PARAMETERS& rDirectXPresentParam = rDirectXInstances.m_DirectXPresentParam;
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	D3DPRESENT_PARAMETERS* pDirectXPresentParam = rDirectXInstances.m_pDirectXPresentParam;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 	HWND& rHWnd = *rDirectXInstances.m_pHWnd;
 
 	if (FAILED(rDirectXInstances.m_pDirectX->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, rHWnd,
-		D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED, &rDirectXPresentParam, &rpDirectX3DDevice)))
-	{
+		D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED, pDirectXPresentParam, &rPDirectX3DDevice)))
+	{	
 		MessageBox(0, _T("HALモードでDIRECT3Dデバイスを作成できません\nREFモードで再試行します"), NULL, MB_OK);
 		if (FAILED(rDirectXInstances.m_pDirectX->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, rHWnd,
 			D3DCREATE_MIXED_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-			&rDirectXPresentParam, &rpDirectX3DDevice)))
+			pDirectXPresentParam, &rPDirectX3DDevice)))
 		{
 			MessageBox(0, _T("DIRECT3Dデバイスの作成に失敗しました"), NULL, MB_OK);
 			return E_FAIL;
@@ -157,7 +168,36 @@ HRESULT DirectX3DDeviceInitializer::Initialize(t_VERTEX_FORMAT d3DFVF, BOOL canC
 
 	rDirectXInstances.m_pDirectX3DDevice->SetFVF(d3DFVF);
 
+	rDirectXInstances.didInitDirectX = true;
+
 	return S_OK;
+}
+
+VOID DirectX3DDevice::SetViewPort()
+{
+	DirectX3DDeviceInitializer* pDirect3DDeviceInitializer = new DirectX3DDeviceInitializer;
+
+	pDirect3DDeviceInitializer->SetViewPort();
+
+	delete pDirect3DDeviceInitializer;
+}
+
+VOID DirectX3DDevice::SetRenderState()
+{
+	DirectX3DDeviceInitializer* pDirect3DDeviceInitializer = new DirectX3DDeviceInitializer;
+
+	pDirect3DDeviceInitializer->SetRenderState(m_canCullPolygon);
+
+	delete pDirect3DDeviceInitializer;
+}
+
+VOID DirectX3DDevice::SetTextureStageState()
+{
+	DirectX3DDeviceInitializer* pDirect3DDeviceInitializer = new DirectX3DDeviceInitializer;
+
+	pDirect3DDeviceInitializer->SetTextureStageState();
+
+	delete pDirect3DDeviceInitializer;
 }
 
 HRESULT DirectX3DDevice::Initialize()
@@ -185,29 +225,29 @@ VOID DirectX3DDevice::PrepareRender()
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
-	rpDirectX3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0x07, 0x07, 0x19), 1.f, 0);
-	rpDirectX3DDevice->BeginScene();
+	rPDirectX3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0x07, 0x07, 0x19), 1.f, 0);
+	rPDirectX3DDevice->BeginScene();
 }
 
 VOID DirectX3DDevice::CleanUpRender()
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
-	rpDirectX3DDevice->EndScene();
-	rpDirectX3DDevice->Present(NULL, NULL, NULL, NULL);
+	rPDirectX3DDevice->EndScene();
+	rPDirectX3DDevice->Present(NULL, NULL, NULL, NULL);
 }
 
 VOID DirectX3DDevice::SetFont(INT scaleX, UINT scaleY, const TCHAR *pFontType, LPD3DXFONT *pFontId, UINT thickness, INT charSet)
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
-	D3DXCreateFont(rpDirectX3DDevice, scaleY, scaleX, thickness, 0, 0, charSet, 0, 0, 0, pFontType, pFontId);
+	D3DXCreateFont(rPDirectX3DDevice, scaleY, scaleX, thickness, 0, 0, charSet, 0, 0, 0, pFontType, pFontId);
 }
 
 VOID DirectX3DDevice::WriteText(INT posX, INT posY, const TCHAR *pText, UINT format, LPD3DXFONT pFontId, DWORD color)
@@ -471,7 +511,7 @@ VOID Camera::SetTransform()
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
 	LPDIRECTINPUTDEVICE8* pDirectXInputDevices = rDirectXInstances.m_pDirectXInputDevices;
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
 	D3DXMatrixIdentity(&m_view);
 
@@ -480,10 +520,10 @@ VOID Camera::SetTransform()
 		&m_eyePoint,
 		&m_cameraOverhead);
 
-	rpDirectX3DDevice->SetTransform(D3DTS_VIEW, &m_view);
+	rPDirectX3DDevice->SetTransform(D3DTS_VIEW, &m_view);
 
 	D3DVIEWPORT9 viewPort;
-	rpDirectX3DDevice->GetViewport(&viewPort);
+	rPDirectX3DDevice->GetViewport(&viewPort);
 
 	FLOAT aspect = (FLOAT)viewPort.Width / (FLOAT)viewPort.Height;
 
@@ -499,7 +539,7 @@ VOID Camera::SetTransform()
 		0.01f,
 		DEFAULT_FAR);
 
-	rpDirectX3DDevice->SetTransform(D3DTS_PROJECTION, &projection);
+	rPDirectX3DDevice->SetTransform(D3DTS_PROJECTION, &projection);
 }
 
 VOID Camera::NegateView(D3DXMATRIX* pMatRotate)
@@ -545,7 +585,116 @@ VOID DirectX::SetRenderState(D3DRENDERSTATETYPE renderStateType, DWORD value)
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
-	rpDirectX3DDevice->SetRenderState(renderStateType, value);
+	rPDirectX3DDevice->SetRenderState(renderStateType, value);
+}
+
+VOID DirectX::ChangeDisplayMode()
+{
+	if (!m_directXInstances.didInitDirectX)
+	{
+		return;
+	}
+
+	HWND hWnd = *m_directXInstances.m_pHWnd;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = m_directXInstances.m_pDirectX3DDevice;
+	D3DPRESENT_PARAMETERS* pDirectXPresentParam = m_directXInstances.m_pDirectXPresentParam;
+	D3DPRESENT_PARAMETERS* pWindowPresentParam = m_directXInstances.m_pWindowPresentParam;
+	D3DPRESENT_PARAMETERS* pFullscreenPresentParam = m_directXInstances.m_pFullscreenPresentParam;
+
+	m_canWindow = !m_canWindow;
+	if (m_canWindow) 
+	{
+		*pDirectXPresentParam = *pWindowPresentParam;
+	}
+
+	static RECT WindowRect;
+	if (!m_canWindow)
+	{
+		*pDirectXPresentParam = *pFullscreenPresentParam;
+		GetWindowRect(hWnd, &WindowRect);
+	}
+
+	HRESULT hr = rPDirectX3DDevice->Reset(pDirectXPresentParam);
+	if (FAILED(hr)) 
+	{
+		if (hr == D3DERR_DEVICELOST)
+		{
+			GameManager::CopyInstance()->SetEnable3DDevice(true);
+		}
+
+		if (hr != D3DERR_DEVICELOST)
+		{
+			DestroyWindow(hWnd);
+		}
+
+		return;
+	}
+
+	if (m_canWindow)
+	{
+		SetWindowLong(hWnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
+		SetWindowPos(hWnd, HWND_NOTOPMOST,
+			WindowRect.left, WindowRect.top,
+			WindowRect.right - WindowRect.left,
+			WindowRect.bottom - WindowRect.top,
+			SWP_SHOWWINDOW);
+	}
+	
+	if (!m_canWindow)
+	{
+		SetWindowLong(hWnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
+	}
+
+	m_DirectX3DDevice.SetRenderState();
+	m_DirectX3DDevice.SetTextureStageState();
+}
+
+VOID DirectX::SetWindowMode(BOOL canWindow)
+{
+	m_canWindow = canWindow;
+}
+
+BOOL DirectX::GetWindowMode()
+{
+	return m_canWindow;
+}
+
+HRESULT DirectX::ChangeWindowSize()
+{
+	if (!m_directXInstances.didInitDirectX)
+	{
+		return 0;
+	}
+
+	HWND hWnd = *m_directXInstances.m_pHWnd;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = m_directXInstances.m_pDirectX3DDevice;
+	D3DPRESENT_PARAMETERS* pDirectXPresentParam = m_directXInstances.m_pDirectXPresentParam;
+	D3DPRESENT_PARAMETERS* pWindowPresentParam = m_directXInstances.m_pWindowPresentParam;
+	D3DPRESENT_PARAMETERS* pFullscreenPresentParam = m_directXInstances.m_pFullscreenPresentParam;
+
+	// ウインドウのクライアント領域に合わせる
+	HRESULT hr = rPDirectX3DDevice->Reset(pDirectXPresentParam);
+	if (FAILED(hr))
+	{
+		if (hr == D3DERR_DEVICELOST) 
+		{
+			GameManager::CopyInstance()->SetEnable3DDevice(true);
+		}
+	}
+
+	if (!FAILED(hr))
+	{
+		DestroyWindow(hWnd);
+	}
+
+	m_DirectX3DDevice.SetViewPort();
+
+	if (FAILED(hr)) 
+	{
+		DestroyWindow(hWnd);
+	}
+
+	return hr;
 }

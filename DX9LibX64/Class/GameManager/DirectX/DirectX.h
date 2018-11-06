@@ -191,17 +191,20 @@ public:
 	VOID SetVertexFormat(t_VERTEX_FORMAT d3DFVF);
 	VOID PrepareRender();
 	VOID CleanUpRender();
+	VOID SetViewPort();
+	VOID SetRenderState();
+	VOID SetTextureStageState();
 
 	template<typename T>
 	VOID DrawVertex(const T* pVertex, const LPDIRECT3DTEXTURE9* pTexture, DWORD fVF, size_t size)
 	{
 		DirectX* pDirectX = DirectX::GetInstance();
 		DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-		LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+		LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
 		LPDIRECT3DVERTEXBUFFER9 vertexBuffer = NULL;
 
-		rpDirectX3DDevice->CreateVertexBuffer(
+		rPDirectX3DDevice->CreateVertexBuffer(
 			(UINT)size,
 			D3DUSAGE_WRITEONLY,
 			fVF,
@@ -217,14 +220,14 @@ public:
 
 		vertexBuffer->Unlock();
 
-		rpDirectX3DDevice->SetStreamSource(0, vertexBuffer, 0, sizeof(T));
+		rPDirectX3DDevice->SetStreamSource(0, vertexBuffer, 0, sizeof(T));
 
-		rpDirectX3DDevice->SetTexture(0, *pTexture);
+		rPDirectX3DDevice->SetTexture(0, *pTexture);
 
 		const INT TRIANGLE_VERTICES_NUM = 3;
 		const UINT TRIANGLE_NUM = (UINT)size / sizeof(T) - (TRIANGLE_VERTICES_NUM - 1);
 
-		HRESULT hr = rpDirectX3DDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, TRIANGLE_NUM);
+		HRESULT hr = rPDirectX3DDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, TRIANGLE_NUM);
 
 		vertexBuffer->Release();
 	}
@@ -345,14 +348,25 @@ class DirectX;
 struct DirectXInstances
 {
 public:
+	DirectXInstances() {};
+	~DirectXInstances()
+	{
+		delete m_pDirectXPresentParam;
+		delete m_pFullscreenPresentParam;
+		delete m_pWindowPresentParam;
+	}
+
 	HWND * m_pHWnd = NULL;
 	LPDIRECT3D9 m_pDirectX;
 	LPDIRECT3DDEVICE9 m_pDirectX3DDevice;
 	LPDIRECTINPUT8 m_pDirectXInput;
 	LPDIRECTINPUTDEVICE8 m_pDirectXInputDevices[(ULONGLONG)INPUT_DEVICES::MAX_INPUT_DEVICES];
 	LPD3DXFONT m_pDirectXFont;
-	D3DPRESENT_PARAMETERS m_DirectXPresentParam;
+	D3DPRESENT_PARAMETERS* m_pDirectXPresentParam = new D3DPRESENT_PARAMETERS;
+	D3DPRESENT_PARAMETERS* m_pFullscreenPresentParam = new D3DPRESENT_PARAMETERS;
+	D3DPRESENT_PARAMETERS* m_pWindowPresentParam = new D3DPRESENT_PARAMETERS;
 	DirectX* m_pDirectXClass = NULL;
+	BOOL didInitDirectX = false;
 };
 
 //DirectXƒNƒ‰ƒX
@@ -364,6 +378,10 @@ public:
 	VOID SetHWND(HWND* pHWnd);
 	VOID SetRenderState(D3DRENDERSTATETYPE renderStateType, DWORD value);
 	DirectXInstances& GetDirectXInstances();
+	VOID SetWindowMode(BOOL canWindow);
+	BOOL GetWindowMode();
+	VOID ChangeDisplayMode();
+	HRESULT ChangeWindowSize();
 
 	DirectXObject m_DirectXObject;
 	DirectX3DDevice m_DirectX3DDevice;
@@ -374,4 +392,5 @@ private:
 	~DirectX();
 
 	static DirectXInstances m_directXInstances;
+	BOOL m_canWindow;
 };

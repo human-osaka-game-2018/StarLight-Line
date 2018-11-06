@@ -11,6 +11,7 @@
 class Light;
 class CustomVertices;
 class Draw;
+class Window;
 
 struct CustomVertex;
 struct Custom3DVertex;
@@ -22,6 +23,8 @@ public:
 	static GameManager* GetInstance(HINSTANCE hInst, TCHAR* pAppName, VOID(*pMainFunc)(), D3DXVECTOR2 displaySize, BOOL canWindown);
 	static GameManager* CopyInstance();
 
+	D3DPRESENT_PARAMETERS* GetD3DPRESENT_PARAMETERS();
+	VOID SetBackBufferSize(INT width,INT height);
 	VOID Create();
 	VOID GetInputData(InputData** pPInputData);
 	INT Release();
@@ -195,6 +198,14 @@ public:
 
 	VOID SetRenderState(D3DRENDERSTATETYPE renderStateType, DWORD value);
 
+	VOID SetEnable3DDevice(BOOL enable3DDevice);
+
+	BOOL GetEnable3DDevice();
+
+	VOID ChangeDisplayMode();
+
+	HRESULT ChangeWindowSize();
+
 private:
 	GameManager(HINSTANCE hInst, TCHAR* pAppName, BOOL canWindow);
 	~GameManager();
@@ -214,4 +225,5 @@ private:
 	static Draw* m_pDraw;
 	static FileManager* m_pFileManager;
 	Light m_light;
+	BOOL m_enable3DDevice = true;
 };

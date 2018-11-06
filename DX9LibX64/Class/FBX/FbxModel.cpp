@@ -20,9 +20,9 @@ FbxModel::FbxModel()
 {
 	DirectX* pDirectX = DirectX::GetInstance();
 	DirectXInstances& rDirectXInstances = pDirectX->GetDirectXInstances();
-	LPDIRECT3DDEVICE9& rpDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
+	LPDIRECT3DDEVICE9& rPDirectX3DDevice = rDirectXInstances.m_pDirectX3DDevice;
 
-	m_pDevice = rpDirectX3DDevice;
+	m_pDevice = rPDirectX3DDevice;
 
 	m_pFbxModelData = NULL;
 }
